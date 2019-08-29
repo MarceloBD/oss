@@ -1,4 +1,3 @@
-// eslint-disable
 import PubSub from 'pubsub-js';
 import { commitMutation as commit } from 'react-relay';
 import { checkErrorOnArray } from '../error';
