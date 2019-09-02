@@ -1,0 +1,8 @@
+{
+    "passPerPreset": true,
+    "plugins": [
+      ["module-resolver", { "root": ["./src/"] }],
+      "transform-runtime"
+    ],
+    "presets": [ "env", "stage-0" ]
+  }

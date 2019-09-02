@@ -7,13 +7,13 @@ const StripHtmlBox = styled.div`
   word-break: break-word;
 `;
 
-const StripHtml = ({ children, clamp }) => {
+const StripHtml = ({ children, clamp, ...otherProps }) => {
   const temporalDivElement = document.createElement('div');
   temporalDivElement.innerHTML = children;
   return (
     <>
       {clamp ? (
-        <StripHtmlBox>
+        <StripHtmlBox {...otherProps}>
           <Dotdotdot clamp={clamp}>{temporalDivElement.textContent || temporalDivElement.innerText || ''}</Dotdotdot>
         </StripHtmlBox>
       ) : (

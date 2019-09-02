@@ -5,6 +5,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { combineReducers, compose, createStore } from 'redux';
 
+import ErrorBoundary from './components/ErrorBoundary';
 import GlobalStyle from './globalStyle';
 import routes from './routes';
 import environment from './utils/relay/createRelayEnvironment';
@@ -33,12 +34,14 @@ const Router = createConnectedRouter({
 
 const Root = () => {
   return (
-    <Provider store={store}>
-      <>
-        <GlobalStyle />
-        <Router resolver={new Resolver(environment)} />
-      </>
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <>
+          <GlobalStyle />
+          <Router resolver={new Resolver(environment)} />
+        </>
+      </Provider>
+    </ErrorBoundary>
   );
 };
 

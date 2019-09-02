@@ -23,7 +23,6 @@ export default function createQueryRenderer(FragmentComponent, config) {
               return <Error errors={errors} component={errorComponent} />;
             }
             if (props) {
-              // eslint-disable-next-line react/jsx-props-no-spreading
               return <FragmentComponent {...wrapperProps} {...props} relay={{ environment }} />;
             }
             return loader;

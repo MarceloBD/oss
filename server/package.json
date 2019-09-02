@@ -1,0 +1,97 @@
+{
+  "name": "phoenix",
+  "version": "0.0.1",
+  "description": "GraphQL API for postgrad",
+  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ]
+  },
+  "importSort": {
+    ".js, .jsx": {
+      "parser": "babylon",
+      "style": "module",
+      "options": {}
+    }
+  },
+  "scripts": {
+    "knex/migrate": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex-migrate up",
+    "knex/migrate:make": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex-migrate generate",
+    "knex/seed": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex seed:run",
+    "knex/seed:make": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex seed:make",
+    "knex/rollback": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex-migrate down",
+    "knex/rollback:all": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex-migrate down --to 0",
+    "knex/redo": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex-migrate redo --verbose",
+    "build": "rm -rf build && mkdir build && yarn build-server",
+    "build-server": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/babel -d build ./src -s",
+    "start-dev": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/babel-watch ./src/server.js",
+    "start": "yarn --frozen-lockfile && yarn start-database && yarn start-server",
+    "start-server": "pm2-runtime start ecosystem.config.js",
+    "start-database": "./node_modules/.bin/knex-migrate up && cd ../.ci && prisma deploy && cd ../phoenix",
+    "test": "./node_modules/.bin/eslint src/**/*.js"
+  },
+  "author": "Curso Ênfase Tech Team",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@babel/core": "^7.4.0",
+    "aws-sdk": "^2.437.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "babel-watch": "^2.0.7",
+    "bcrypt": "^3.0.5",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "ejs": "^2.6.1",
+    "env-cmd": "^7.0.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-import-resolver-babel-module": "^5.0.1",
+    "eslint-plugin-import": "^2.16.0",
+    "express": "^4.16.2",
+    "express-graphql": "^0.7.1",
+    "fs": "^0.0.1-security",
+    "graphql": "^14.1.1",
+    "graphql-relay": "^0.6.0",
+    "husky": "^1.3.1",
+    "import-sort-style-module": "^6.0.0",
+    "jwt-simple": "^0.5.6",
+    "knex": "^0.16.3",
+    "knex-migrate": "1.7.0",
+    "libphonenumber-js": "^1.7.20",
+    "lint-staged": "^8.1.5",
+    "lodash": "^4.17.11",
+    "moment-timezone": "^0.5.23",
+    "nodemailer": "^6.0.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "pg": "^7.4.1",
+    "pm2": "^3.4.1",
+    "prisma-client-lib": "^1.29.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "8",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "eslint": "5.15.3",
+    "eslint-plugin-babel": "^4.1.2",
+    "prettier": "1.15.3",
+    "webpack": "^3.9.1",
+    "webpack-dev-server": "^2.11.1",
+    "webpack-hot-middleware": "^2.21.0"
+  }
+}
