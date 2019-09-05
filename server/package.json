@@ -23,6 +23,7 @@
     }
   },
   "scripts": {
+    "knex/migrate:first": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex migrate:make",
     "knex/migrate": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex-migrate up",
     "knex/migrate:make": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex-migrate generate",
     "knex/seed": "./node_modules/.bin/env-cmd .env ./node_modules/.bin/knex seed:run",

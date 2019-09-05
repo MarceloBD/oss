@@ -1,10 +1,10 @@
 const defaultConfig = {
   migrations: {
-    directory: '../prisma/migrations',
+    directory: '../db/migrations',
     tableName: 'knex_migrations',
   },
   seeds: {
-    directory: '../prisma/seeds',
+    directory: '../db/seeds',
   },
   client: 'postgresql',
   connection: {

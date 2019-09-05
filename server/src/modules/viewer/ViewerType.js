@@ -1,7 +1,8 @@
-import { getUserOrThrow } from '../auth/Auth';
 import UserType from '../user/UserType';
 
 export default {
   type: UserType,
-  resolve: (root, args, context) => getUserOrThrow(context),
+  resolve: async (root, args, context) => {
+    console.log(await context.photon.users.findOne({ where: { id: 1 } }));
+  },
 };

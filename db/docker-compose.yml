@@ -1,0 +1,16 @@
+version: "2.1"
+services:
+  postgres:
+    image: postgres:10.5
+    restart: always
+    healthcheck:
+      test: "!</dev/tcp/db/5432"
+    environment:
+      POSTGRES_USER: auror
+      POSTGRES_PASSWORD: auror
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  ? postgres

@@ -1,13 +1,13 @@
 import 'babel-polyfill';
 
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import graphQLHTTP from 'express-graphql';
 
 import Auth from './modules/auth/Auth';
 import schema from './modules/schema';
 import { isProduction } from './utils/environment';
-import { prisma } from './utils/prisma-client';
+import photon from './utils/photon';
 
 const graphQLServer = express();
 
@@ -25,7 +25,6 @@ graphQLServer.use(cors(corsConfig));
 const auth = Auth();
 graphQLServer.use(auth.initialize());
 graphQLServer.all('/graphql*', auth.authenticate());
-
 graphQLServer.use(
   '/graphql',
   graphQLHTTP(request => ({
@@ -33,7 +32,7 @@ graphQLServer.use(
     pretty: true,
     graphiql: !isProduction(),
     context: {
-      prisma,
+      photon,
       login: request.login,
       user: request.user,
       staffUser: request.staffUser,

@@ -1,0 +1,361 @@
+type User @pgTable(name: "user") {
+  id: Int! @unique
+  email: String @unique
+  password: String!
+  name: String!
+  lastname: String
+  cpf: String
+  zendeskId: String @pgColumn(name: "zendesk_id") @unique
+  professor: Professor @relation(name: "UserProfessor")
+  cellphone: String
+  otherphone: String
+  staff: Staff
+  student: Student
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  notes: [Note] @relation(name: "UserNote")
+  avatar: Resource @pgColumn(name: "resource_id")
+  enrollment: [Enrollment]
+}
+
+type Alternative @pgTable(name: "alternative") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  description: String
+  order: Int
+  justification: String
+  letter: String
+  question: Question @pgColumn(name: "question_id") @relation(name: "QuestionAlternative")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Banner @pgTable(name: "banner") {
+  id: Int! @unique
+  course: Course @pgColumn(name: "course_id")
+  resource: Resource @pgColumn(name: "resource_id")
+  title: String
+  description: String
+  button: String
+  link: String
+  startDate: DateTime! @pgColumn(name: "start_date")
+  endDate: DateTime! @pgColumn(name: "end_date")
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Bill @pgTable(name: "bill") {
+  id: Int! @unique
+  order: Order! @pgColumn(name: "order_id")
+  externalId: String! @pgColumn(name: "external_id")
+  status: String!
+  dueDate: DateTime! @pgColumn(name: "due_date")
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Course @pgTable(name: "course") {
+  id: Int! @unique
+  name: String!
+  description: String
+  productId: String @pgColumn(name: "product_id")
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  courseModule: [CourseModule] @pgColumn(name: "course_module")
+  enrollment: [Enrollment]
+  banners: [Banner]
+}
+
+type CourseModule @pgTable(name: "course_module") {
+  id: Int! @unique
+  order: Int
+  availabilityDate: DateTime @pgColumn(name: "availability_date")
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  course: Course @pgColumn(name: "course_id")
+  module: Module @pgColumn(name: "module_id")
+}
+
+type Exam @pgTable(name: "exam") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  description: String
+  module: Module @pgColumn(name: "module_id")
+  questionnaire: Questionnaire @pgColumn(name: "questionnaire_id")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  questions: [ExamQuestion]
+  user: User @pgColumn(name: "user_id")
+  type: String
+}
+
+type ExamQuestion @pgTable(name: "exam_question"){
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  exam: Exam @pgTable(name: "exam_id")
+  question: Question @pgTable(name: "question_id")
+}
+
+type KnexMigration @pgTable(name: "knex_migrations") {
+  id: Int! @unique
+  batch: Int
+  migration_time: DateTime
+  name: String
+}
+
+type Lesson @pgTable(name: "lesson") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  professor: Professor @pgColumn(name: "professor_id")
+  repository: Repository @pgColumn(name: "repository_id") @relation(name: "LessonRepository")
+  questionnaire: Questionnaire @pgColumn(name: "questionnaire_id") @relation(name: "LessonQuestionnaire")
+  resume: Resume @pgColumn(name: "resume_id") @relation(name: "LessonResume")
+  subject: Subject @pgColumn(name: "subject_id") @relation(name: "SubjectLesson")
+  title: String
+  number: Int
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  video: Video @relation(name: "LessonVideo")
+  notes: [Note] @relation(name: "LessonNote")
+  trial: Boolean! @default(value: false)
+}
+
+type Login @pgTable(name: "login") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  user: User
+}
+
+type MasterLesson @pgTable(name: "master_lesson") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  module: Module @pgColumn(name: "module_id")
+  repository: Repository @relation(name: "MasterLessonRepository")
+  resume: Resume @pgColumn(name: "resume_id")
+  speaker: Speaker @relation(name: "MasterLessonSpeaker")
+  title: String
+  trial: Boolean
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  video: Video @relation(name: "MasterLessonVideo")
+  notes: [Note] @relation(name: "MasterLessonNote")
+}
+
+type Module @pgTable(name: "module") {
+  id: Int! @unique
+  number: String
+  name: String!
+  type: String!
+  master_lesson: [MasterLesson]
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  exam: [Exam] @pgColumn(name: "exam_id")
+  courseModule: [CourseModule] @pgColumn(name: "course_module")
+  enrollment_module: [EnrollmentModule]
+  subjects: [Subject]
+}
+
+type Professor @pgTable(name: "professor") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  lesson: [Lesson]
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  user: User @relation(name: "UserProfessor")
+  description: String
+  occupation: String
+}
+
+type Question @pgTable(name: "question") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  correctAlternative: Alternative @pgColumn(name: "correct_alternative_id") @relation(name: "QuestionCorrectAlternative")
+  alternatives: [Alternative] @relation(name: "QuestionAlternative")
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  description: String
+  order: Int
+  questionnaire: Questionnaire @pgColumn(name: "questionnaire_id") @relation(name: "QuestionnaireQuestion")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Questionnaire @pgTable(name: "questionnaire") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  exam: Exam
+  lesson: Lesson @relation(name: "LessonQuestionnaire", onDelete: CASCADE)
+  question: [Question] @relation(name: "QuestionnaireQuestion", onDelete: CASCADE)
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type RecoverPassword @pgTable(name: "recover_password") {
+  id: Int! @unique
+  token: String!
+  user: User
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Repository @pgTable(name: "repository") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  lesson: Lesson @relation(name: "LessonRepository", onDelete: CASCADE)
+  master_lesson: [MasterLesson] @relation(name: "MasterLessonRepository")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Resource @pgTable(name: "resource") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  key: String
+  name: String
+  type: String
+  mimetype: String
+  size: Int
+  link: String
+  repository: Repository @pgColumn(name: "repository_id")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Resume @pgTable(name: "resume") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  lesson: Lesson @relation(name: "LessonResume", onDelete: CASCADE)
+  title: String!
+  raw: String!
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Speaker @pgTable(name: "speaker") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  description: String
+  master_lesson: [MasterLesson] @relation(name: "MasterLessonSpeaker")
+  name: String @unique
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  resource: Resource @pgColumn(name: "resource_id")
+  occupation: String
+}
+
+type Staff @pgTable(name: "staff") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  user: User @pgColumn(name: "user_id")
+}
+
+type Student @pgTable(name: "student") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  user: User
+}
+
+type Subject @pgTable(name: "subject") {
+  id: Int! @unique
+  name: String
+  description: String
+  sectionId: String @pgColumn(name: "section_id")
+  order: Int
+  topicId: String @pgColumn(name: "topic_id")
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  module: Module @pgColumn(name: "module_id")
+  lesson: [Lesson] @relation(name: "SubjectLesson")
+  presentationLesson: Lesson @pgColumn(name:"lesson_id") @relation(name: "SubjectPresentationLesson")
+  avatar: Resource @pgColumn(name: "resource_id")
+  courseSubjects: [CourseSubject] @relation(name: "CourseSubject", onDelete: CASCADE)
+  questionnaire: Questionnaire @pgColumn(name: "questionnaire_id")
+}
+
+type Enrollment @pgTable(name: "enrollment") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  user: User
+  course: Course
+  startTrial: DateTime @pgColumn(name: "start_trial")
+  endTrial: DateTime @pgColumn(name: "end_trial")
+  lastAccess: DateTime @pgColumn(name: "last_access")
+  enrollment_module: [EnrollmentModule]
+  orders: [Order]
+}
+
+type Order @pgTable(name: "order") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  bling_order_id: String
+  created_at: DateTime!
+  enrollments: [Enrollment]
+  bills: [Bill]
+  updated_at: DateTime!
+  woo_order_id: String
+}
+
+type EnrollmentModule @pgTable(name: "enrollment_module") {
+  id: Int! @unique
+  enrollment: Enrollment
+  module: Module
+  start: DateTime
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Video @pgTable(name: "video") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  lesson: Lesson @relation(name: "LessonVideo", onDelete: CASCADE)
+  masterLesson: MasterLesson @relation(name: "MasterLessonVideo")
+  externalId: String @pgColumn(name: "external_id")
+  duration: Int
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type Note @pgTable(name: "note") {
+  id: Int! @unique
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  lesson: Lesson @relation(name: "LessonNote")
+  masterlesson: MasterLesson @relation(name: "MasterLessonNote")
+  text: String
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+  user: User @relation(name: "UserNote")
+}
+
+type CourseSubject @pgTable(name: "course_subject") {
+  id: Int! @unique
+  course: Course
+  subject: Subject @relation(name: "CourseSubject")
+  availabilityDate: DateTime @pgColumn(name: "availability_date")
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
+
+type LoginToken @pgTable(name: "login_token") {
+  id: Int! @unique
+  enrollment: Enrollment! @pgColumn(name: "enrollment_id")
+  token: String! @unique
+  expirationDate: DateTime @pgColumn(name: "expiration_date")
+  active: Boolean! @default(value: true)
+  createdAt: DateTime! @pgColumn(name: "created_at")
+  updatedAt: DateTime! @pgColumn(name: "updated_at")
+}
