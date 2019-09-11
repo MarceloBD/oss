@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
+import SignInMutation from '../../modules/login/mutations/SignInMutation';
 import SignUpMutation from '../../modules/login/mutations/SignUpMutation';
 
 const validationSchema = () =>
@@ -21,19 +22,18 @@ const StyledForm = styled(Form)`
 `;
 
 const LoginPage = () => {
-  const onSubmit = data => {
-    console.log('sub');
-    console.log('onSubmit', data);
+  const onSignIn = values => {
+    SignInMutation.commit({ variables: { email: values.email, password: values.password } });
   };
 
-  const onCreateAccount = values => {
+  const onSignUp = values => {
     SignUpMutation.commit({ variables: { email: values.email, password: values.password } });
   };
 
   return (
     <>
       <div>Login</div>
-      <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSubmit}>
+      <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSignIn}>
         {({ handleSubmit }) => (
           <StyledForm onSubmit={handleSubmit}>
             <Field type="email" placeholder="Email" name="email" />
@@ -44,11 +44,7 @@ const LoginPage = () => {
           </StyledForm>
         )}
       </Formik>
-      <Formik
-        initialValues={{ email: '', password: '' }}
-        validationSchema={validationSchema}
-        onSubmit={onCreateAccount}
-      >
+      <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSignUp}>
         {({ handleSubmit }) => (
           <StyledForm onSubmit={handleSubmit}>
             <Field type="email" placeholder="Email" name="email" />

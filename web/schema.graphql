@@ -74,6 +74,7 @@ type Mutation {
 
   # Records the last enrollment accessed by the user
   updateLastAccess(input: UpdateLastAccessMutationInput!): UpdateLastAccessMutationPayload
+  signIn(input: SignInMutationInput!): SignInMutationPayload
   signUp(input: SignUpMutationInput!): SignUpMutationPayload
 }
 
@@ -122,7 +123,19 @@ type ResetPasswordMutationPayload {
   clientMutationId: String
 }
 
+input SignInMutationInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type SignInMutationPayload {
+  clientMutationId: String
+}
+
 input SignUpMutationInput {
+  email: String!
+  password: String!
   clientMutationId: String
 }
 
