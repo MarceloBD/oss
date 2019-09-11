@@ -1,5 +1,5 @@
 ---
-to: ../moody/src/pages/<%= name %>Page.js
+to: ../web/src/pages/<%= name %>Page.js
 ---
 import React from 'react';
 import PropTypes from 'prop-types';
