@@ -17,8 +17,9 @@ model KnexMigration {
 }
 
 model User {
-  id   Int     @id
-  name String?
+  id       Int     @id
+  email    String?
+  password String?
 
   @@map("user")
 }

@@ -74,6 +74,7 @@ type Mutation {
 
   # Records the last enrollment accessed by the user
   updateLastAccess(input: UpdateLastAccessMutationInput!): UpdateLastAccessMutationPayload
+  signUp(input: SignUpMutationInput!): SignUpMutationPayload
 }
 
 # An object with an ID
@@ -118,6 +119,14 @@ input ResetPasswordMutationInput {
 type ResetPasswordMutationPayload {
   jwtToken: String!
   user: User!
+  clientMutationId: String
+}
+
+input SignUpMutationInput {
+  clientMutationId: String
+}
+
+type SignUpMutationPayload {
   clientMutationId: String
 }
 

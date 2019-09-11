@@ -4,7 +4,9 @@ exports.up = async function(knex, Promise) {
       .unsigned()
       .primary();
 
-    t.string("name");
+    t.string("email");
+
+    t.string("password");
   });
 };
 

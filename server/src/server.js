@@ -3,6 +3,7 @@ import 'babel-polyfill';
 import cors from 'cors';
 import express from 'express';
 import graphQLHTTP from 'express-graphql';
+import expressPlayground from 'graphql-playground-middleware-express';
 
 import Auth from './modules/auth/Auth';
 import schema from './modules/schema';
@@ -39,6 +40,7 @@ graphQLServer.use(
     },
   })),
 );
+graphQLServer.get('/playground', expressPlayground({ endpoint: '/graphql' }));
 
 graphQLServer.listen(process.env.GRAPHQL_PORT, () =>
   console.log(`GraphQL Server is now running on ${process.env.GRAPHQL_BASE_URL}`),

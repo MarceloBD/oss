@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    background-color: #171026;
+    background-color: #FFFFFF;
     overflow: visible !important;
     padding-right: 0px !important;
   }
