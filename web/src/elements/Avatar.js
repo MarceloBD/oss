@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import SVG from 'react-svg';
 import styled from 'styled-components';
 
 import theme from '../utils/theme';
@@ -22,7 +21,7 @@ const AvatarIconStyled = styled(AvatarIcon)`
   fill: ${theme.palette.background.default};
 `;
 
-const Avatar = ({ imgLink, link, ...props }) => {
+const Avatar = ({ link, ...props }) => {
   return (
     <Clickable link={link}>
       <AvatarBox {...props}>
@@ -31,5 +30,7 @@ const Avatar = ({ imgLink, link, ...props }) => {
     </Clickable>
   );
 };
-Avatar.propTypes = {};
+Avatar.propTypes = {
+  link: PropTypes.string.isRequired,
+};
 export default Avatar;

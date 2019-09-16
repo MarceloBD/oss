@@ -43,6 +43,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/node": "^7.2.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/polyfill": "^7.4.4",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",

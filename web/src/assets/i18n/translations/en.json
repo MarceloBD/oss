@@ -1,6 +1,7 @@
 {
   "signin": "Sign In",
   "homePage": {
-    "title": "Welcome to free source material service"
+    "title": "Welcome to free source material service",
+    "menuTitle": "Materials"
   }
 }

@@ -1,6 +1,7 @@
 {
   "signin": "Entrar",
   "homePage": {
-    "title": "Seja bem vindo ao serviço de material livre"
+    "title": "Seja bem vindo ao serviço de material livre",
+    "menuTitle": "Materiais"
   }
 }
