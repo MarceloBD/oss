@@ -5,20 +5,14 @@ import PubSub from 'pubsub-js';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import theme from './theme';
-
 const AUTO_HIDE_DURATION = 3000;
 
 const SUCCESS_TYPE = 'success';
 const ERROR_TYPE = 'error';
 
-const StyledSuccess = styled(Success)`
-  color: ${theme.palette.common.white};
-`;
+const StyledSuccess = styled(Success)``;
 
-const StyledError = styled(Error)`
-  color: ${theme.palette.common.white};
-`;
+const StyledError = styled(Error)``;
 
 export const Message = () => {
   const [open, setOpen] = useState(false);

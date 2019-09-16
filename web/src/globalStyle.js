@@ -1,11 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Exo:400,700,800|Lato|Open+Sans:400,600');
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700&display=swap');
 
   body {
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: Source Sans Pro;
     font-weight: 400;
     background-color: #FFFFFF;
     overflow: visible !important;

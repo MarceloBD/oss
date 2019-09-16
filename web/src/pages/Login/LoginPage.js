@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
@@ -58,8 +59,13 @@ const FormButton = styled.button`
 `;
 
 const LoginPage = () => {
+  const { t, i18n } = useTranslation();
   const onSignIn = values => {
-    SignInMutation.commit({ variables: { email: values.email, password: values.password } });
+    SignInMutation.commit({
+      variables: { email: values.email, password: values.password },
+      onCompleted: () => console.log('Usuário logado'),
+      onError: () => console.log('Usuário ou senha inválido(s)'),
+    });
   };
 
   const onSignUp = values => {
@@ -84,7 +90,7 @@ const LoginPage = () => {
         <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSignIn}>
           {({ handleSubmit }) => (
             <SignInForm onSubmit={handleSubmit}>
-              <FormTitle> Logar</FormTitle>
+              <FormTitle> {t('signin')}</FormTitle>
               <StyledField type="email" placeholder="Email" name="email" />
               <StyledField type="password" placeholder="Senha" name="password" />
               <FormButton type="submit" color="secondary">

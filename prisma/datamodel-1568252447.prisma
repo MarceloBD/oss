@@ -1,0 +1,21 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://auror:auror@localhost:5432/auror?schema=public"
+}
+
+model KnexMigration {
+  id            Int       @id
+  batch         Int?
+  migrationTime DateTime? @map("migration_time")
+  name          String?
+
+  @@map("knex_migrations")
+}
+
+model User {
+  id       Int     @id
+  email    String? @unique
+  password String?
+
+  @@map("user")
+}

@@ -1,71 +1,42 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+// import media from './media';
 
-import media from './media';
-
-export default createMuiTheme({
-  shadow: {
-    inset: 'inset 6px 28px 85px -40px rgba(0,0,0,0.4)',
-    box: '0 2px 40px 0 rgba(0, 0, 0, 0.2)',
-  },
+export default {
   palette: {
     background: {
-      default: '#171026',
-      light: '  #FFFFFF',
-      dark: '#1c1c1c',
-    },
-    common: {
-      darkGray: '#262626',
-      lightGray: '#4B4B4B',
-    },
-    action: {
-      hover: '#A3C31A',
+      default: '#ffffff',
     },
     primary: {
-      light: '#201335',
-      main: '#D10163',
-      contrastText: '#FFFFFF',
+      default: '#880044',
+      800: '#a03369',
+      600: '#b8668f',
+      400: '#cf99b4',
+      200: '#e7ccda',
     },
-    secondary: {
-      main: '#a3c31a',
-      contrastText: '#6C2877',
+    secodary: {
+      default: 'rgb(12,98,145)', // #0C6291
+      800: 'rgb(12,98,145, 0.8)',
+      600: 'rgb(12,98,145, 0.6)',
+      400: 'rgb(12,98,145, 0.4)',
+      200: 'rgb(12,98,145, 0.2)',
     },
-
-    lessonViewMode: [
-      { name: 'light', backgroundColor: '#FFFFFF', titleColor: '#222222', contentColor: '#757575' },
-      { name: 'dark', backgroundColor: '#121212', titleColor: '#E3E3E3', contentColor: '#E3E3E3' },
-    ],
   },
   spacing: {
-    margin: 175,
-    width: 1200,
-    betweenBox: 16,
     mediaQuery: {
       mobile: '(max-width: 873px)',
     },
   },
   typography: {
-    useNextVariants: true,
-    fontFamily: 'Exo, sans-serif',
-    fontFamilyBold: 'Exo, sans-serif; font-weight: 700 !important',
-    h1: {
-      fontFamily: 'Exo, sans-serif',
-      fontWeight: 'bold',
-      fontSize: '34px',
-      color: 'white',
-      textTransform: 'normal',
+    light: {
+      fontFamily: 'Source Sans Pro',
+      fontWeight: '300',
     },
-    h2: {
-      fontFamily: 'Exo, sans-serif',
-      fontSize: '42px',
+    regular: {
+      fontFamily: 'Source Sans Pro',
+      fontWeight: '400',
+    },
+    bold: {
+      fontFamily: 'Source Sans Pro',
       fontWeight: '700',
-      lineHeight: 'normal',
-      color: '#FFFFFF',
-    },
-    h3: {
-      fontSize: '26px',
-      fontFamily: 'Exo, sans-serif',
-      fontWeight: '800',
-      fontColor: '#222222',
     },
     p: {
       fontFamily: 'Exo, sans-serif',
@@ -75,5 +46,4 @@ export default createMuiTheme({
       color: '#FFFFFF',
     },
   },
-  media,
-});
+};

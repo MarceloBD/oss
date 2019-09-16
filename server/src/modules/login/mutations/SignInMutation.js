@@ -3,9 +3,12 @@ import { mutationWithClientMutationId } from 'graphql-relay';
 import bcrypt from 'bcrypt';
 
 export const signIn = async ({ clientMutationId, email, password }, context) => {
-  const user = await context.photon.users.findOne({ where: { email } });
-  console.log(user && bcrypt.compareSync(password, user.password));
-  return { clientMutationId };
+  const [user] = await context.photon.users.findMany({ where: { email } });
+  console.log(user);
+  if (user && bcrypt.compareSync(password, user.password)) {
+    return { clientMutationId };
+  }
+  throw new Error();
 };
 
 export default mutationWithClientMutationId({

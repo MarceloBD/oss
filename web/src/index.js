@@ -2,19 +2,21 @@ import 'whatwg-fetch';
 import '@babel/polyfill';
 
 import './utils/polyfills';
+import './i18n';
 
-import { MuiThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import theme from './utils/theme';
 import Root from './root';
 import { Message } from './utils/message';
-import theme from './utils/theme';
+
+const ThemeContext = React.createContext(null);
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
+  <ThemeContext.Provider value={theme}>
     <Root />
     <Message />
-  </MuiThemeProvider>,
+  </ThemeContext.Provider>,
   document.getElementById('app'),
 );
