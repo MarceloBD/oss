@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
+import isLoaded from '../../utils/isLoaded';
 import { createQueryRenderer, graphql } from '../../utils/relay';
 import theme from '../../utils/theme';
 
@@ -17,22 +18,12 @@ const MenuTitle = styled.div``;
 
 const HomePage = () => {
   const { t, i18n } = useTranslation();
-  const [create, setCreate] = React.useState(false);
-
-  React.useEffect(() => {
-    i18n.on('loaded', loaded => {
-      if (loaded && loaded[i18n.language]) setCreate(true);
-    });
-  });
+  if (!isLoaded(i18n)) return <></>;
 
   return (
     <>
-      {create && (
-        <>
-          <TitleBox>{t('homePage.title')}</TitleBox>
-          <MenuTitle>{t('homePage.menuTitle')}</MenuTitle>
-        </>
-      )}
+      <TitleBox>{t('homePage.title')}</TitleBox>
+      <MenuTitle>{t('homePage.menuTitle')}</MenuTitle>
     </>
   );
 };
