@@ -1,5 +1,5 @@
 ---
-to: ../web/src/pages/<%= name %>Page.js
+to: ../web/src/elements/<%= name %>.js
 ---
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -22,10 +22,15 @@ class <%= name %>Page extends React.Component {
 };<% } -%>
 <% if(component == 'pure'){ -%>
 
-const <%= name %>Page = ({}) => (
+const <%= name %> = ({}) => (
   <>
   </>
-);<% } -%><% if(hasQueryRenderer == 'y') { -%> 
+);<% } -%>
+
+<%= name%>.propTypes = {};
+
+
+<% if(hasQueryRenderer == 'y') { -%> 
 export default createQueryRenderer(<%= name %>Page, {
   query: graphql`
   query <%= name %>PageQuery() {
@@ -35,5 +40,5 @@ export default createQueryRenderer(<%= name %>Page, {
 });
 <% } else { -%>
 
-export default <%= name %>Page;
+export default <%= name %>;
 <% } -%>
