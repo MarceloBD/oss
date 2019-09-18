@@ -2,9 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-import Plus from '../../assets/icons/Plus';
+import Title from '../../components/TitleIcon';
 import DropDownItems from '../../compositions/ClickableDropDownItems';
-import ClickableIcon from '../../elements/ClickableIcon';
 import isLoaded from '../../utils/isLoaded';
 import { createQueryRenderer, graphql } from '../../utils/relay';
 import theme from '../../utils/theme';
@@ -24,19 +23,6 @@ const MenuBox = styled.div`
   align-items: center;
 `;
 
-const MenuTitle = styled.div`
-  font-size: 30px;
-  color: ${theme.palette.primary[800]};
-`;
-
-const ClickableIconBox = styled.div`
-  fill: ${theme.palette.primary.default};
-  display: contents;
-  svg {
-    margin: 2px 0px 0px 10px;
-  }
-`;
-
 const HomePage = () => {
   const { t, i18n } = useTranslation();
   if (!isLoaded(i18n)) return <></>;
@@ -44,10 +30,7 @@ const HomePage = () => {
     <>
       <TitleBox>{t('homePage.title')}</TitleBox>
       <MenuBox>
-        <MenuTitle>{t('homePage.menuTitle')}</MenuTitle>
-        <ClickableIconBox>
-          <ClickableIcon icon={<Plus />} />
-        </ClickableIconBox>
+        <Title title={t('homePage.menuTitle')} />
       </MenuBox>
       <DropDownItems items={[{ text: 'hardware' }, { text: 'software' }, { text: 'escritos' }]} />
     </>
