@@ -8,6 +8,12 @@ import Avatar from '../../elements/Avatar';
 import LoginButton from '../../elements/ClickableTextBox';
 import theme from '../../utils/theme';
 
+const NavbarLayoutBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+
 const NavbarContent = styled.div`
   height: 73px;
   background: ${theme.palette.primary.default};
@@ -22,16 +28,21 @@ const AvatarStyled = styled(Avatar)`
   margin-left: 25px;
 `;
 
+const ChildrenBox = styled.div`
+  flex: 1;
+  overflow: auto;
+`;
+
 const NavbarLayout = ({ children }) => {
   const { t } = useTranslation();
   return (
-    <>
+    <NavbarLayoutBox>
       <NavbarContent>
         <LoginButton text={t('signin')} link="/login" />
         <AvatarStyled />
       </NavbarContent>
-      {children}
-    </>
+      <ChildrenBox>{children}</ChildrenBox>
+    </NavbarLayoutBox>
   );
 };
 

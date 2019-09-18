@@ -8,8 +8,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: Source Sans Pro;
     font-weight: 400;
     background-color: #FFFFFF;
-    overflow: visible !important;
+    overflow: hidden;
     padding-right: 0px !important;
+    height: 100vh;
   }
 `;
 

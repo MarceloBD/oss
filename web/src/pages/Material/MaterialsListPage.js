@@ -12,7 +12,7 @@ const TitleBox = styled.div`
 
 const MaterialListBox = styled.div`
   margin: 0px 128px;
-`
+`;
 
 const MaterialsListPage = () => {
   const { t } = useTranslation();
@@ -24,6 +24,27 @@ const MaterialsListPage = () => {
       <MaterialListBox>
         <MaterialsList
           items={[
+            {
+              title: 'Software para deteccao de pessoas',
+              description:
+                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
+              vote: 10,
+              type: 'software',
+            },
+            {
+              title: 'Software para deteccao de pessoas',
+              description:
+                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
+              vote: 10,
+              type: 'software',
+            },
+            {
+              title: 'Software para deteccao de pessoas',
+              description:
+                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
+              vote: 10,
+              type: 'software',
+            },
             {
               title: 'Software para deteccao de pessoas',
               description:
