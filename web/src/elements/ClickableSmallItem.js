@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import theme from '../utils/theme';
+import Clickable from './Clickable';
 
 const ClickableSmallItemBox = styled.div`
   height: 45px;
@@ -17,8 +18,12 @@ const ClickableSmallItemBox = styled.div`
   align-items: center;
 `;
 
-const ClickableSmallItem = ({ text, ...props }) => <ClickableSmallItemBox {...props}>{text}</ClickableSmallItemBox>;
+const ClickableSmallItem = ({ text, link, ...props }) => (
+  <Clickable link={link}>
+    <ClickableSmallItemBox {...props}>{text}</ClickableSmallItemBox>
+  </Clickable>
+);
 
-ClickableSmallItem.propTypes = { text: PropTypes.string.isRequired };
+ClickableSmallItem.propTypes = { text: PropTypes.string.isRequired, link: PropTypes.string.isRequired };
 
 export default ClickableSmallItem;

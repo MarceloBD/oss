@@ -32,22 +32,22 @@ const SubItemStyled = styled(SubItem)`
   ${props =>
     props.dropdown
       ? css`
-          animation: ${animation} 2s 0s 1;
+          animation: ${animation} 1s 0s 1;
           opacity: 1;
         `
       : css`
-          animation: ${animation2} 2s 0s 1;
+          animation: ${animation2} 1s 0s 1;
           opacity: 0;
         `}
 `;
 
-const DropDownItem = ({ text }) => {
+const DropDownItem = ({ text, ...props }) => {
   const [dropdown, setDropDown] = useState(false);
 
   return (
-    <DropDownItemBox>
+    <DropDownItemBox {...props}>
       <MainItem text={text} onClick={() => setDropDown(!dropdown)} />
-      {true && (
+      {dropdown && (
         <>
           <SubItemStyled text={text} dropdown={dropdown} />
         </>

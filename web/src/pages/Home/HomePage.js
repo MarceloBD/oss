@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import Plus from '../../assets/icons/Plus';
+import DropDownItems from '../../compositions/ClickableDropDownItems';
 import ClickableIcon from '../../elements/ClickableIcon';
 import isLoaded from '../../utils/isLoaded';
 import { createQueryRenderer, graphql } from '../../utils/relay';
 import theme from '../../utils/theme';
-import Item from '../../components/DropDownItem';
 
 const TitleBox = styled.div`
   font-size: 40px;
@@ -49,7 +49,7 @@ const HomePage = () => {
           <ClickableIcon icon={<Plus />} />
         </ClickableIconBox>
       </MenuBox>
-      <Item text="Hardware" />
+      <DropDownItems items={[{ text: 'hardware' }, { text: 'software' }, { text: 'escritos' }]} />
     </>
   );
 };
