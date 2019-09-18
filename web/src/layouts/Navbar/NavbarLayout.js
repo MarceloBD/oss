@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import isLoaded from '../../utils/isLoaded';
 
 import Avatar from '../../elements/Avatar';
 import LoginButton from '../../elements/ClickableTextBox';
+import { StateContext } from '../../utils/context';
 import theme from '../../utils/theme';
 
 const NavbarLayoutBox = styled.div`
@@ -34,14 +36,18 @@ const ChildrenBox = styled.div`
 `;
 
 const NavbarLayout = ({ children }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  if (!isLoaded(i18n)) return <></>;
+
   return (
     <NavbarLayoutBox>
       <NavbarContent>
         <LoginButton text={t('signin')} link="/login" />
         <AvatarStyled />
       </NavbarContent>
-      <ChildrenBox>{children}</ChildrenBox>
+      <StateContext.Provider value={{ t, i18n }}>
+        <ChildrenBox>{children}</ChildrenBox>
+      </StateContext.Provider>
     </NavbarLayoutBox>
   );
 };

@@ -1,10 +1,9 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import Title from '../../components/TitleIcon';
 import DropDownItems from '../../compositions/ClickableDropDownItems';
-import isLoaded from '../../utils/isLoaded';
+import { useStateValue } from '../../utils/context';
 import { createQueryRenderer, graphql } from '../../utils/relay';
 import theme from '../../utils/theme';
 
@@ -24,8 +23,7 @@ const MenuBox = styled.div`
 `;
 
 const HomePage = () => {
-  const { t, i18n } = useTranslation();
-  if (!isLoaded(i18n)) return <></>;
+  const { t } = useStateValue();
   return (
     <>
       <TitleBox>{t('homePage.title')}</TitleBox>
