@@ -22,7 +22,7 @@ class <%= name %>Page extends React.Component {
 };<% } -%>
 <% if(component == 'pure'){ -%>
 
-const <%= name %>Page = ({}) => (
+const <%= name %>Page = () => (
   <>
   </>
 );<% } -%><% if(hasQueryRenderer == 'y') { -%> 
@@ -34,6 +34,8 @@ export default createQueryRenderer(<%= name %>Page, {
   queriesParams: props => ({}),
 });
 <% } else { -%>
+
+<%= name %>Page.propTypes = {};
 
 export default <%= name %>Page;
 <% } -%>

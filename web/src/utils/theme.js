@@ -21,9 +21,13 @@ export default {
     },
   },
   spacing: {
+    unit: px => `${px * 8}px`,
     mediaQuery: {
       mobile: '(max-width: 873px)',
     },
+  },
+  border: {
+    radius: '10px',
   },
   typography: {
     light: {

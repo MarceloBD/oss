@@ -3,5 +3,15 @@
   "homePage": {
     "title": "Welcome to free source material service",
     "menuTitle": "Materials"
+  },
+  "materialPage": {
+    "description": "Description",
+    "authors": "Authors",
+    "link": "Link",
+    "references": "References"
+  },
+  "vote": {
+    "vote": "Vote",
+    "votes": "Votes"
   }
 }

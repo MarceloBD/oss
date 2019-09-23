@@ -33,6 +33,7 @@ const AvatarStyled = styled(Avatar)`
 const ChildrenBox = styled.div`
   flex: 1;
   overflow: auto;
+  padding: 33px 100px;
 `;
 
 const NavbarLayout = ({ children }) => {

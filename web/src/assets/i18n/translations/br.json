@@ -3,5 +3,15 @@
   "homePage": {
     "title": "Seja bem vindo ao serviço de material livre",
     "menuTitle": "Materiais"
+  },
+  "materialPage": {
+    "description": "Descrição",
+    "authors": "Autores",
+    "link": "Link",
+    "references": "Referências"
+  },
+  "vote": {
+    "vote": "Votar",
+    "votes": "Votos"
   }
 }

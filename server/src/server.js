@@ -13,7 +13,6 @@ import photon from './utils/photon';
 const graphQLServer = express();
 
 const corsConfig = {
-  origin: [process.env.PORTAL_URL, process.env.AUTH_URL, process.env.CONTENT_URL, process.env.TRIAL_CRUD_URL],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   credentials: true,
