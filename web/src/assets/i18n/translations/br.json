@@ -10,6 +10,11 @@
     "link": "Link",
     "references": "Referências"
   },
+  "createMaterialPage": {
+    "title": "Título",
+    "description": "Descrição",
+    "submit": "Enviar"
+  },
   "vote": {
     "vote": "Votar",
     "votes": "Votos"

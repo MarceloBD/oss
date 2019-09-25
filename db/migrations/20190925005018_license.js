@@ -1,20 +1,14 @@
 exports.up = async knex => {
-  await knex.schema.createTable("user", t => {
+  await knex.schema.createTable("license", t => {
     t.increments("id")
       .unsigned()
       .primary();
 
     t.string("name").notNullable();
 
-    t.string("document").unique();
+    t.string("version");
 
-    t.string("email").unique();
-
-    t.string("password").notNullable();
-
-    t.string("cellphone");
-
-    t.string("affiliction");
+    t.string("license_type");
 
     t.boolean("active")
       .notNull()
@@ -25,5 +19,5 @@ exports.up = async knex => {
 };
 
 exports.down = async knex => {
-  await knex.schema.dropTableIfExists("user");
+  await knex.schema.dropTableIfExists("license");
 };

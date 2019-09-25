@@ -1,1 +1,3 @@
-- tentar criar os styled primeiro 
+- tentar criar os styled primeiro
+- usar space no tema
+- provider
