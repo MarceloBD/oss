@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
+import Auth from '../../modules/auth/Auth';
 import SignInMutation from '../../modules/login/mutations/SignInMutation';
 import SignUpMutation from '../../modules/login/mutations/SignUpMutation';
 
@@ -59,17 +60,19 @@ const FormButton = styled.button`
 `;
 
 const LoginPage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const onSignIn = values => {
     SignInMutation.commit({
       variables: { email: values.email, password: values.password },
-      onCompleted: () => console.log('Usuário logado'),
+      onCompleted: ({ signIn: { jwtToken, user } }) => {
+        Auth.login({ jwtToken, user });
+      },
       onError: () => console.log('Usuário ou senha inválido(s)'),
     });
   };
 
-  const onSignUp = values => {
-    SignUpMutation.commit({ variables: { email: values.email, password: values.password } });
+  const onSignUp = ({ name, email, document, cellphone, password }) => {
+    SignUpMutation.commit({ variables: { name, email, document, cellphone, password } });
   };
 
   return (
@@ -78,11 +81,14 @@ const LoginPage = () => {
         <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSignUp}>
           {({ handleSubmit }) => (
             <SignUpForm onSubmit={handleSubmit}>
-              <FormTitle>Criar Conta</FormTitle>
-              <StyledField type="email" placeholder="Email" name="email" />
-              <StyledField type="password" placeholder="Senha" name="password" />
+              <FormTitle>{t('loginPage.signUp')}</FormTitle>
+              <StyledField type="name" placeholder={t('loginPage.name')} name="name" />
+              <StyledField type="email" placeholder={t('loginPage.email')} name="email" />
+              <StyledField type="document" placeholder={t('loginPage.document')} name="document" />
+              <StyledField type="cellphone" placeholder={t('loginPage.cellphone')} name="cellphone" />
+              <StyledField type="password" placeholder={t('loginPage.password')} name="password" />
               <FormButton type="submit" color="secondary">
-                Criar
+                {t('loginPage.signUpButton')}
               </FormButton>
             </SignUpForm>
           )}
@@ -90,7 +96,7 @@ const LoginPage = () => {
         <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSignIn}>
           {({ handleSubmit }) => (
             <SignInForm onSubmit={handleSubmit}>
-              <FormTitle> {t('signin')}</FormTitle>
+              <FormTitle> {t('loginPage.signIn')}</FormTitle>
               <StyledField type="email" placeholder="Email" name="email" />
               <StyledField type="password" placeholder="Senha" name="password" />
               <FormButton type="submit" color="secondary">

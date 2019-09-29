@@ -2,7 +2,7 @@ import jwt from 'jwt-simple';
 import passport from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { prisma } from '../../utils/prisma-client';
+import photon from '../../utils/photon';
 
 export const TOKEN_EXPIRATION_LIMIT_HOURS = 24;
 
@@ -12,8 +12,9 @@ const params = {
 };
 
 export const getUserOrThrow = context => {
+  console.log(context);
   if (!context.user) {
-    throw new Error('unauthenticated');
+    return null;
   }
   return context.user;
 };
@@ -30,9 +31,9 @@ const desactivateOlderLogins = user =>
   prisma.updateManyLogins({ data: { active: false }, where: { active: true, user: { id: user.id } } });
 
 export const createLogin = async user => {
-  await desactivateOlderLogins(user);
-  const newLogin = await prisma.createLogin({ user: { connect: { id: user.id } } });
-
+  //  await desactivateOlderLogins(user);
+  // console.log(photon.logins.findMany();
+  const newLogin = await photon.logins.create({ data: { user: { connect: { id: user.id } } } });
   const payload = { id: newLogin.id };
   const jwtToken = jwt.encode(payload, process.env.JWT_SECRET);
   return { jwtToken, user };
@@ -49,18 +50,11 @@ export default () => {
           return next(err);
         }
         if (payload) {
-          const isImpersonated = req.get('origin') === process.env.PORTAL_URL && 'impersonatePayload' in payload;
-          const [login] = await prisma.logins({ where: { id: payload.id, active: true } });
-          const user = isImpersonated
-            ? await prisma.user({ id: payload.impersonatePayload.userId })
-            : await prisma.login({ id: payload.id }).user();
-
+          const [login] = await photon.logins.findMany({ where: { id: payload.id, active: true } });
+          const user = await photon.logins.findOne({ where: { id: payload.id } }).user();
           if (login) {
-            req.login = login;
-            req.user = { ...user, isImpersonated };
-            if (isImpersonated) {
-              req.staffUser = { ...(await prisma.login({ id: payload.id }).user()), loginId: payload.id };
-            }
+            //  req.login = login;
+            req.user = { ...user };
           }
         }
         return next();

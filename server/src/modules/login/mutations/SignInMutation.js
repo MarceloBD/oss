@@ -1,12 +1,14 @@
+import bcrypt from 'bcrypt';
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
-import bcrypt from 'bcrypt';
 
-export const signIn = async ({ clientMutationId, email, password }, context) => {
+import { createLogin } from '../../auth/Auth';
+import UserType from '../../user/UserType';
+
+export const signIn = async ({ email, password }, context) => {
   const [user] = await context.photon.users.findMany({ where: { email } });
-  console.log(user);
   if (user && bcrypt.compareSync(password, user.password)) {
-    return { clientMutationId };
+    return createLogin(user);
   }
   throw new Error();
 };
@@ -17,6 +19,15 @@ export default mutationWithClientMutationId({
     email: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: new GraphQLNonNull(GraphQLString) },
   },
-  outputFields: {},
+  outputFields: {
+    jwtToken: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: payload => payload.jwtToken,
+    },
+    user: {
+      type: UserType,
+      resolve: payload => payload.user,
+    },
+  },
   mutateAndGetPayload: signIn,
 });

@@ -1,8 +1,8 @@
 import { commitMutation, environment, graphql } from '../../../utils/relay';
 
 const mutation = graphql`
-  mutation SignInMutation($input: SignInMutationInput!) {
-    signIn(input: $input) {
+  mutation LoginTokenMutation($input: LoginTokenMutationInput!) {
+    loginToken(input: $input) {
       jwtToken
       user {
         id

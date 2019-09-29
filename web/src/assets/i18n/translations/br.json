@@ -1,5 +1,10 @@
 {
-  "signin": "Entrar",
+  "loginPage": {
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "signUpButton": "Criar",
+    "logOut": "Sair"
+  },
   "homePage": {
     "title": "Seja bem vindo ao serviço de material livre",
     "menuTitle": "Materiais"

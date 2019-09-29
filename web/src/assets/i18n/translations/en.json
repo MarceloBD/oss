@@ -1,5 +1,17 @@
 {
-  "signin": "Sign In",
+  "loginPage": {
+    "signUp": "Sign Up",
+    "signUpButton": "Create",
+    "name": "Name",
+    "document": "Document",
+    "email": "Email",
+    "password": "Password",
+    "cellphone": "Cellphone",
+    "affiliction": "Affilition",
+    "logOut": "Log Out",
+    "signIn": "Sign In"
+  },
+
   "homePage": {
     "title": "Welcome to free source material service",
     "menuTitle": "Materials"

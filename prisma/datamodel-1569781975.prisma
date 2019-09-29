@@ -1,7 +1,3 @@
-generator photon {
-  provider = "photonjs"
-}
-
 datasource db {
   provider = "postgresql"
   url      = "postgresql://auror:auror@localhost:5432/auror?schema=public"
@@ -42,6 +38,14 @@ model License {
   @@map("license")
 }
 
+model Login {
+  id        Int      @id
+  active    Boolean
+  user      User?    @map("user_id")
+
+  @@map("login")
+}
+
 model Material {
   id                     Int                      @id
   active                 Boolean
@@ -56,8 +60,16 @@ model Material {
   name                   String
   openSourceId           String?                  @map("open_source_id")
   post                   Post[]
-  relationFrom               Relation[]               @relation("MaterialRelationToRelationMaterialFrom")
-  relationTo               Relation[]               @relation("MaterialRelationToRelationMaterialTo")
+  /// Field name normalization failed because of a conflicting field name.
+  /// Could not auto-generate backwards relation field, field name would be ambiguous.
+  /// Please specify the name of this field and the name of the relation manually.
+  /// It references Relation.materialFrom.
+  relation               Relation[]               @relation("MaterialRelationToRelationMaterialFrom")
+  /// Field name normalization failed because of a conflicting field name.
+  /// Could not auto-generate backwards relation field, field name would be ambiguous.
+  /// Please specify the name of this field and the name of the relation manually.
+  /// It references Relation.materialTo.
+  relation               Relation[]               @relation("MaterialRelationToRelationMaterialTo")
   sourceType             String?                  @map("source_type")
   type                   String
   updatedAt              DateTime                 @map("updated_at")
@@ -65,15 +77,6 @@ model Material {
   version                Version?                 @map("version_id")
 
   @@map("material")
-}
-
-
-model Login {
-  id        Int      @id
-  active    Boolean @default(true)
-  user      User?    @map("user_id")
-
-  @@map("login")
 }
 
 model MaterialAuthor {
@@ -228,10 +231,11 @@ model TargetAudience {
 
 model User {
   id          Int           @id
-  active      Boolean @default(true)
+  active      Boolean
   affiliction String?
   author      Author[]
   cellphone   String?
+  createdAt   DateTime      @map("created_at")
   document    String?       @unique
   email       String?       @unique
   login       Login[]
@@ -241,6 +245,7 @@ model User {
   postComment PostComment[]
   postVote    PostVote[]
   staff       Staff[]
+  updatedAt   DateTime      @map("updated_at")
 
   @@map("user")
 }

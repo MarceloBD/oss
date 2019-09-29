@@ -130,11 +130,16 @@ input SignInMutationInput {
 }
 
 type SignInMutationPayload {
+  jwtToken: String!
+  user: User
   clientMutationId: String
 }
 
 input SignUpMutationInput {
+  name: String!
   email: String!
+  document: String!
+  cellphone: String!
   password: String!
   clientMutationId: String
 }
