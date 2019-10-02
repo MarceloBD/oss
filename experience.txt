@@ -1,3 +1,4 @@
 - tentar criar os styled primeiro
 - usar space no tema
 - provider
+- react hooks order

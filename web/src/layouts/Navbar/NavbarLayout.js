@@ -1,12 +1,14 @@
 import { withRouter } from 'found';
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import Avatar from '../../elements/Avatar';
 import Button from '../../elements/ClickableTextBox';
+import Auth from '../../modules/auth/Auth';
+import SignOutMutation from '../../modules/login/mutations/SignOutMutation';
 import { StateContext } from '../../utils/context';
 import isLoaded from '../../utils/isLoaded';
 import { createQueryRenderer, graphql } from '../../utils/relay';
@@ -39,14 +41,24 @@ const ChildrenBox = styled.div`
 `;
 
 const NavbarLayout = ({ children, viewer }) => {
+  console.log(viewer);
   const { t, i18n } = useTranslation();
-  if (!isLoaded(i18n)) return <></>;
+  const [isFirefox, setIsFirefox] = useState(true);
+  const isLoadedi18n = isLoaded(i18n);
+  useEffect(() => setIsFirefox(typeof InstallTrigger !== 'undefined'), []);
   const isLogged = Boolean(get(viewer, 'id'));
+  if (isFirefox && !isLoadedi18n) return <></>;
+
+  const signOut = () => {
+    SignOutMutation.commit({ variables: {} });
+    Auth.logout();
+  };
+
   return (
     <NavbarLayoutBox>
       <NavbarContent>
         <Button text={isLogged ? get(viewer, 'name') : t('loginPage.signIn')} link="/login" disabled={isLogged} />
-        {isLogged && <Button text={t('loginPage.logOut')} link="/login" />}
+        {isLogged && <Button text={t('loginPage.logOut')} onClick={signOut} />}
         <AvatarStyled />
       </NavbarContent>
       <StateContext.Provider value={{ t, i18n }}>
@@ -58,7 +70,11 @@ const NavbarLayout = ({ children, viewer }) => {
 
 NavbarLayout.propTypes = {
   children: PropTypes.object.isRequired,
-  viewer: PropTypes.object.isRequired,
+  viewer: PropTypes.object,
+};
+
+NavbarLayout.defaultProps = {
+  viewer: null,
 };
 
 export default createQueryRenderer(withRouter(NavbarLayout), {

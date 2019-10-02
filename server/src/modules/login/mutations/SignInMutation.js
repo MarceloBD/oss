@@ -8,6 +8,7 @@ import UserType from '../../user/UserType';
 export const signIn = async ({ email, password }, context) => {
   const [user] = await context.photon.users.findMany({ where: { email } });
   if (user && bcrypt.compareSync(password, user.password)) {
+    console.log(user);
     return createLogin(user);
   }
   throw new Error();

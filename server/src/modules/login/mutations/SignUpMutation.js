@@ -8,8 +8,6 @@ export const signUp = async ({ clientMutationId, name, email, document, cellphon
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(payload, salt);
 
-  console.log({ name, email, document, cellphone, password: hash });
-
   await context.photon.users.create({
     data: {
       name,

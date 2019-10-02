@@ -27,11 +27,10 @@ export const hasStaffPermission = async ({ user }) => {
 };
 
 const desactivateOlderLogins = user =>
-  prisma.updateManyLogins({ data: { active: false }, where: { active: true, user: { id: user.id } } });
+  photon.logins.updateMany({ data: { active: false }, where: { active: true, user: { id: user.id } } });
 
 export const createLogin = async user => {
-  //  await desactivateOlderLogins(user);
-  // console.log(photon.logins.findMany();
+  await desactivateOlderLogins(user);
   const newLogin = await photon.logins.create({ data: { user: { connect: { id: user.id } } } });
   const payload = { id: newLogin.id };
   const jwtToken = jwt.encode(payload, process.env.JWT_SECRET);
@@ -52,7 +51,7 @@ export default () => {
           const [login] = await photon.logins.findMany({ where: { id: payload.id, active: true } });
           const user = await photon.logins.findOne({ where: { id: payload.id } }).user();
           if (login) {
-            //  req.login = login;
+            req.login = login;
             req.user = { ...user };
           }
         }

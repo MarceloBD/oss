@@ -10,7 +10,6 @@ export default function createQueryRenderer(FragmentComponent, config) {
   const { query, queriesParams, variables, loader, errorComponent } = config;
   const QueryRendererWrapper = wrapperProps => {
     const queryVariables = queriesParams ? queriesParams(wrapperProps) : variables;
-    console.log(config);
     return (
       <ErrorBoundary>
         <QueryRenderer

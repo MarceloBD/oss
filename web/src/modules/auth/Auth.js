@@ -5,9 +5,11 @@ import JWTToken from '../../utils/JWTToken';
 const checkLogin = ({ user, query = {} }) => {
   const isLogged = Boolean(get(user, 'id'));
   if (isLogged) {
-    window.location = `${process.env.PORTAL_URL}/#${query.redirect && query.redirect !== '/' ? query.redirect : '/'}`;
-    window.location.reload();
+    window.location.assign(
+      `${process.env.PORTAL_URL}/#${query.redirect && query.redirect !== '/' ? query.redirect : '/'}`,
+    );
   }
+  window.location.reload(true);
 };
 
 const login = ({ jwtToken, user, query }) => {
@@ -17,7 +19,7 @@ const login = ({ jwtToken, user, query }) => {
 
 const logout = () => {
   JWTToken.destroy();
-  window.location.assign('/#/login');
+  window.location.reload(true);
 };
 
 export default { checkLogin, login, logout };

@@ -25,7 +25,6 @@ export const PostQuery = {
   args: connectionArgs,
   resolve: async (root, args, context) => {
     const posts = await context.photon.posts();
-    console.log(posts);
     return connectionFromArray(posts, args);
   },
 };

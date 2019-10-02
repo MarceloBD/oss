@@ -9,10 +9,10 @@ const TextBox = styled.div`
   color: ${theme.palette.background.default};
 `;
 
-const ClickableTextBoxPage = ({ text, link, disabled }) => {
+const ClickableTextBoxPage = ({ text, link, disabled, onClick }) => {
   return (
     <>
-      <Clickable link={link} disabled={disabled}>
+      <Clickable link={link} disabled={disabled} onClick={onClick}>
         <TextBox>{text}</TextBox>
       </Clickable>
     </>
@@ -20,12 +20,15 @@ const ClickableTextBoxPage = ({ text, link, disabled }) => {
 };
 ClickableTextBoxPage.propTypes = {
   text: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
   disabled: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 ClickableTextBoxPage.defaultProps = {
   disabled: false,
+  onClick: null,
+  link: null,
 };
 
 export default ClickableTextBoxPage;

@@ -93,6 +93,7 @@ type Mutation {
   # Records the last enrollment accessed by the user
   updateLastAccess(input: UpdateLastAccessMutationInput!): UpdateLastAccessMutationPayload
   signIn(input: SignInMutationInput!): SignInMutationPayload
+  signOut(input: SignOutMutationInput!): SignOutMutationPayload
   signUp(input: SignUpMutationInput!): SignUpMutationPayload
   createNewPost(input: CreateNewPostMutationInput!): CreateNewPostMutationPayload
 }
@@ -176,6 +177,14 @@ input SignInMutationInput {
 type SignInMutationPayload {
   jwtToken: String!
   user: User
+  clientMutationId: String
+}
+
+input SignOutMutationInput {
+  clientMutationId: String
+}
+
+type SignOutMutationPayload {
   clientMutationId: String
 }
 
