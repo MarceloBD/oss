@@ -3,6 +3,16 @@ type Auth {
   hasStaffPermission: Boolean
 }
 
+input CreateNewPostMutationInput {
+  title: String
+  description: String
+  clientMutationId: String
+}
+
+type CreateNewPostMutationPayload {
+  clientMutationId: String
+}
+
 type Enrollment implements Node {
   active: Boolean
   lastAccess: String
@@ -84,6 +94,7 @@ type Mutation {
   updateLastAccess(input: UpdateLastAccessMutationInput!): UpdateLastAccessMutationPayload
   signIn(input: SignInMutationInput!): SignInMutationPayload
   signUp(input: SignUpMutationInput!): SignUpMutationPayload
+  createNewPost(input: CreateNewPostMutationInput!): CreateNewPostMutationPayload
 }
 
 # An object with an ID

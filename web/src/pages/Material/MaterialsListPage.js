@@ -20,7 +20,7 @@ const MaterialsListPage = ({ system }) => {
   return (
     <>
       <TitleBox>
-        <Title title={t('homePage.menuTitle')} />
+        <Title title={t('homePage.menuTitle')} link="/create" />
       </TitleBox>
       <MaterialListBox>
         <MaterialsList

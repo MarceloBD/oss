@@ -51,10 +51,7 @@ const UserType = registerGraphQLNodeObjectType('user')({
     },
     posts: {
       type: PostConnection.connectionType,
-      resolve: (user, args, context) => {
-        console.log('here');
-        console.log(context.photon);
-      },
+      resolve: (user, args, context) => {},
     },
 
     currentEnrollment: {

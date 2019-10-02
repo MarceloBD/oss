@@ -44,8 +44,7 @@ model License {
 
 model Material {
   id                     Int                      @id
-  active                 Boolean
-  createdAt              DateTime                 @map("created_at")
+  active                 Boolean                  @default(true)
   description            String?
   domainName             String?                  @map("domain_name")
   hash                   String?
@@ -60,7 +59,6 @@ model Material {
   relationTo               Relation[]               @relation("MaterialRelationToRelationMaterialTo")
   sourceType             String?                  @map("source_type")
   type                   String
-  updatedAt              DateTime                 @map("updated_at")
   url                    String?
   version                Version?                 @map("version_id")
 
@@ -111,14 +109,12 @@ model OperatingSystem {
 
 model Post {
   id             Int           @id
-  active         Boolean
-  checked        Boolean
-  createdAt      DateTime      @map("created_at")
+  active         Boolean       @default(true)
+  checked        Boolean       @default(false)
   material       Material?     @map("material_id")
   numberOfAccess Int?          @map("number_of_access")
   postComment    PostComment[]
   postVote       PostVote[]
-  updatedAt      DateTime      @map("updated_at")
   user           User?         @map("user_id")
 
   @@map("post")

@@ -1,26 +1,25 @@
 import { Field, Form, Formik } from 'formik';
-import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
 import * as Yup from 'yup';
 
+import CreateNewPostMutation from '../../modules/post/mutations/CreateNewPostMutation';
 import { useStateValue } from '../../utils/context';
 
 const validationSchema = () =>
   Yup.object().shape({
-    email: Yup.string()
-      .required('Email é um campo obrigatório')
-      .email('Email inválido'),
-    password: Yup.string().required('Senha é um campo obrigatório'),
+    title: Yup.string().required('Email é um campo obrigatório'),
+    description: Yup.string().required('Senha é um campo obrigatório'),
   });
 
-const onCreate = () => {};
+const onCreate = ({ title, description }) => {
+  CreateNewPostMutation.commit({ variables: { title, description } });
+};
 
 const CreateMaterialPage = () => {
   const { t } = useStateValue();
   return (
     <>
-      <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onCreate}>
+      <Formik initialValues={{ title: '', description: '' }} validationSchema={validationSchema} onSubmit={onCreate}>
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
             <Field type="title" placeholder={t('createMaterialPage.title')} name="title" />

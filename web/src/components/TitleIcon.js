@@ -24,17 +24,22 @@ const ClickableIconBox = styled.div`
   }
 `;
 
-const TitleIcon = ({ title, ...props }) => (
+const TitleIcon = ({ title, link, ...props }) => (
   <TitleIconBox {...props}>
     <MenuTitle>{title}</MenuTitle>
     <ClickableIconBox>
-      <ClickableIcon icon={<Plus />} />
+      <ClickableIcon link={link} icon={<Plus />} />
     </ClickableIconBox>
   </TitleIconBox>
 );
 
 TitleIcon.propTypes = {
   title: PropTypes.string.isRequired,
+  link: PropTypes.string,
+};
+
+TitleIcon.defaultProps = {
+  link: null,
 };
 
 export default TitleIcon;
