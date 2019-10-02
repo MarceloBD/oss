@@ -1,19 +1,18 @@
 import { GraphQLObjectType } from 'graphql';
 
 import { hasStaffPermission } from '../auth/Auth';
+import { PostQuery } from '../post/PostType';
 import { UserQuery } from '../user/UserType';
 
 const getSystem = async (root, args, context) => {
-  if (await hasStaffPermission(context)) {
-    return {};
-  }
-  throw Error('unauthorized');
+  return {};
 };
 
 const GraphQLSystem = new GraphQLObjectType({
   name: 'System',
   fields: {
     users: UserQuery,
+    posts: PostQuery,
   },
 });
 

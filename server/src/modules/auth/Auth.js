@@ -12,7 +12,6 @@ const params = {
 };
 
 export const getUserOrThrow = context => {
-  console.log(context);
   if (!context.user) {
     return null;
   }

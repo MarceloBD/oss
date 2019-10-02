@@ -66,6 +66,14 @@ type LogoutMutationPayload {
   clientMutationId: String
 }
 
+type Material implements Node {
+  name: String
+  type: String
+
+  # The ID of an object
+  id: ID!
+}
+
 type Mutation {
   login(input: LoginMutationInput!): LoginMutationPayload
   loginToken(input: LoginTokenMutationInput!): LoginTokenMutationPayload
@@ -97,6 +105,31 @@ type PageInfo {
 
   # When paginating forwards, the cursor to continue.
   endCursor: String
+}
+
+type Post implements Node {
+  material: Material
+
+  # The ID of an object
+  id: ID!
+}
+
+# A connection to a list of items.
+type PostConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [PostEdge]
+}
+
+# An edge in a connection.
+type PostEdge {
+  # The item at the end of the edge
+  node: Post
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 type Query {
@@ -150,6 +183,7 @@ type SignUpMutationPayload {
 
 type System {
   users(skip: Int, after: String, before: String, first: Int, last: Int): UserConnection
+  posts(skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
 }
 
 input UpdateLastAccessMutationInput {
@@ -172,6 +206,7 @@ type User implements Node {
   otherphone: String
   fullname: String
   enrollments(where: String, orderBy: String, skip: Int, after: String, before: String, first: Int, last: Int): EnrollmentConnection
+  posts: PostConnection
   currentEnrollment: Enrollment
   isImpersonated: Boolean
 

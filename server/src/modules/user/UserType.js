@@ -4,6 +4,7 @@ import { connectionDefinitions, connectionFromArray } from 'graphql-relay';
 import { getCurrentEnrollment } from '../enrollment/Enrollment';
 import EnrollmentType, { EnrollmentConnection } from '../enrollment/EnrollmentType';
 import { registerGraphQLNodeObjectType } from '../node/NodeType';
+import { PostConnection } from '../post/PostType';
 import connectionArgs from '../prisma/connectionArgs';
 import FilterSortArgs from '../prisma/FilterSortArgs';
 
@@ -48,6 +49,14 @@ const UserType = registerGraphQLNodeObjectType('user')({
       resolve: (user, args, context) =>
         context.prisma.enrollmentsConnection({ where: { user: { id: user.id }, active: true }, ...args }),
     },
+    posts: {
+      type: PostConnection.connectionType,
+      resolve: (user, args, context) => {
+        console.log('here');
+        console.log(context.photon);
+      },
+    },
+
     currentEnrollment: {
       type: EnrollmentType,
       resolve: async (user, args, context) => {

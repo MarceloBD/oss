@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { createQueryRenderer, graphql } from 'utils/relay';
 
 import Title from '../../components/TitleIcon';
 import MaterialsList from '../../compositions/ItemsList';
@@ -14,7 +15,7 @@ const MaterialListBox = styled.div`
   margin: 0px 128px;
 `;
 
-const MaterialsListPage = () => {
+const MaterialsListPage = ({ system }) => {
   const { t } = useTranslation();
   return (
     <>
@@ -23,68 +24,37 @@ const MaterialsListPage = () => {
       </TitleBox>
       <MaterialListBox>
         <MaterialsList
-          items={[
-            {
-              title: 'Software para deteccao de pessoas',
-              description:
-                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
-              vote: 10,
-              type: 'software',
-            },
-            {
-              title: 'Software para deteccao de pessoas',
-              description:
-                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
-              vote: 10,
-              type: 'software',
-            },
-            {
-              title: 'Software para deteccao de pessoas',
-              description:
-                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
-              vote: 10,
-              type: 'software',
-            },
-            {
-              title: 'Software para deteccao de pessoas',
-              description:
-                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
-              vote: 10,
-              type: 'software',
-            },
-            {
-              title: 'Software para deteccao de pessoas',
-              description:
-                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
-              vote: 10,
-              type: 'software',
-            },
-            {
-              title: 'Software para deteccao de pessoas',
-              description:
-                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
-              vote: 10,
-              type: 'software',
-            },
-            {
-              title: 'Software para deteccao de pessoas',
-              description:
-                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
-              vote: 10,
-              type: 'software',
-            },
-            {
-              title: 'Software para deteccao de pessoas',
-              description:
-                'Uma breve descrição do software, Uma breve descrição do software , Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software Uma breve descrição do software',
-              vote: 10,
-              type: 'software',
-            },
-          ]}
+          items={system.posts.edges.map(({ node: { material } }) => ({
+            title: material.name,
+            description: 'tsete',
+            vote: 10,
+            type: material.type,
+          }))}
         />
       </MaterialListBox>
     </>
   );
 };
 
-export default MaterialsListPage;
+MaterialsListPage.propTypes = {
+  system: PropTypes.object.isRequired,
+};
+
+export default createQueryRenderer(MaterialsListPage, {
+  query: graphql`
+    query MaterialsListPageQuery {
+      system {
+        posts {
+          edges {
+            node {
+              material {
+                name
+                type
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+});
