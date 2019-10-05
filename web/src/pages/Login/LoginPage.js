@@ -52,7 +52,6 @@ const FormTitle = styled.div`
 
 const StyledField = styled(Field)`
   width: 100%;
-  border-radius: 10px;
 `;
 
 const FormButton = styled.button`

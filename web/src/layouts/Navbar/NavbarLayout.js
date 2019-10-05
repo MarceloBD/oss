@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
+import ChangeLanguage from '../../components/ChangeLanguage';
+import SearchInput from '../../components/SearchInput';
 import Avatar from '../../elements/Avatar';
 import Logo from '../../elements/ClickableImage';
 import Button from '../../elements/ClickableTextBox';
@@ -35,6 +37,11 @@ const LogoBox = styled.div``;
 
 const ButtonsBox = styled.div`
   display: flex;
+  align-items: center;
+`;
+
+const SearchBox = styled.div`
+  margin-right: ${theme.spacing.unit(4)};
 `;
 
 const AvatarStyled = styled(Avatar)`
@@ -67,6 +74,10 @@ const NavbarLayout = ({ children, viewer }) => {
           <Logo image={{ src: 'assets/imgs/small-logo.png', width: 70 }} link="/" />
         </LogoBox>
         <ButtonsBox>
+          <SearchBox>
+            <SearchInput placeholder="Buscar" />
+          </SearchBox>
+          <ChangeLanguage />
           <Button text={isLogged ? get(viewer, 'name') : t('loginPage.signIn')} link="/login" disabled={isLogged} />
           {isLogged && <Button text={t('loginPage.logOut')} onClick={signOut} />}
           <AvatarStyled />
