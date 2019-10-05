@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import Avatar from '../../elements/Avatar';
+import Logo from '../../elements/ClickableImage';
 import Button from '../../elements/ClickableTextBox';
 import Auth from '../../modules/auth/Auth';
 import SignOutMutation from '../../modules/login/mutations/SignOutMutation';
 import { StateContext } from '../../utils/context';
-import isLoaded from '../../utils/isLoaded';
+// import isLoaded from '../../utils/isLoaded';
 import { createQueryRenderer, graphql } from '../../utils/relay';
 import theme from '../../utils/theme';
 
@@ -24,10 +25,16 @@ const NavbarContent = styled.div`
   height: 73px;
   background: ${theme.palette.primary.default};
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: 0 36px;
   box-sizing: border-box;
+`;
+
+const LogoBox = styled.div``;
+
+const ButtonsBox = styled.div`
+  display: flex;
 `;
 
 const AvatarStyled = styled(Avatar)`
@@ -41,13 +48,12 @@ const ChildrenBox = styled.div`
 `;
 
 const NavbarLayout = ({ children, viewer }) => {
-  console.log(viewer);
   const { t, i18n } = useTranslation();
-  const [isFirefox, setIsFirefox] = useState(true);
-  const isLoadedi18n = isLoaded(i18n);
+  const [, setIsFirefox] = useState(true);
+  //    const isLoadedi18n = isLoaded(i18n);
   useEffect(() => setIsFirefox(typeof InstallTrigger !== 'undefined'), []);
   const isLogged = Boolean(get(viewer, 'id'));
-  if (isFirefox && !isLoadedi18n) return <></>;
+  //  if (isFirefox && !isLoadedi18n) return <></>;
 
   const signOut = () => {
     SignOutMutation.commit({ variables: {} });
@@ -57,9 +63,14 @@ const NavbarLayout = ({ children, viewer }) => {
   return (
     <NavbarLayoutBox>
       <NavbarContent>
-        <Button text={isLogged ? get(viewer, 'name') : t('loginPage.signIn')} link="/login" disabled={isLogged} />
-        {isLogged && <Button text={t('loginPage.logOut')} onClick={signOut} />}
-        <AvatarStyled />
+        <LogoBox>
+          <Logo image={{ src: 'assets/imgs/small-logo.png', width: 70 }} link="/" />
+        </LogoBox>
+        <ButtonsBox>
+          <Button text={isLogged ? get(viewer, 'name') : t('loginPage.signIn')} link="/login" disabled={isLogged} />
+          {isLogged && <Button text={t('loginPage.logOut')} onClick={signOut} />}
+          <AvatarStyled />
+        </ButtonsBox>
       </NavbarContent>
       <StateContext.Provider value={{ t, i18n }}>
         <ChildrenBox>{children}</ChildrenBox>

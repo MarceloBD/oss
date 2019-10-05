@@ -44,6 +44,7 @@ export default () => {
     initialize: () => passport.initialize(),
     authenticate: () => (req, res, next) => {
       passport.authenticate('jwt', async (err, payload) => {
+        console.log(payload);
         if (err) {
           return next(err);
         }

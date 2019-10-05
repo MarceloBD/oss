@@ -1,0 +1,7 @@
+diff a/web/src/layouts/Navbar/NavbarLayout.js b/web/src/layouts/Navbar/NavbarLayout.js	(rejected hunks)
+@@ -10 +10 @@ import Button from '../../elements/ClickableTextBox';
+-import Auth from '../../modules/auth/Auth'
++import Auth from '../../modules/auth/Auth';
+@@ -44 +44 @@ const NavbarLayout = ({ children, viewer }) => {
+-  console.log(viewer)
++  console.log(viewer);

@@ -2,3 +2,4 @@
 - usar space no tema
 - provider
 - react hooks order
+- proptypes default with flatten
