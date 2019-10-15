@@ -22,9 +22,14 @@ export const PostConnection = connectionDefinitions({
 
 export const PostQuery = {
   type: PostConnection.connectionType,
-  args: connectionArgs,
+  args: { type: { type: GraphQLString }, ...connectionArgs },
   resolve: async (root, args, context) => {
-    const posts = await context.photon.posts();
+    let posts;
+    if (args.type !== 'all') {
+      posts = await context.photon.posts({ where: { material: { type: args.type.toUpperCase() } } });
+    } else {
+      posts = await context.photon.posts();
+    }
     return connectionFromArray(posts, args);
   },
 };

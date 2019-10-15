@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import { createQueryRenderer, graphql } from 'utils/relay';
 
 import ItemBox from '../../components/TagContent';
 import Vote from '../../components/Vote';
@@ -55,12 +56,11 @@ const ReferencesBox = styled.div`
   margin-top: ${theme.spacing.unit(3)};
 `;
 
-const MaterialPage = () => {
+const MaterialPage = ({ material }) => {
   const { t } = useStateValue();
-
   return (
     <>
-      <TitleBox>Software de deteccao de pessoas</TitleBox>
+      <TitleBox>{material.name}</TitleBox>
       <MaterialBox>
         <DescriptionAttributeAuthorBox>
           <ItemBox tag={t('materialPage.description')} content="text" />
@@ -88,4 +88,21 @@ const MaterialPage = () => {
     </>
   );
 };
-export default MaterialPage;
+
+MaterialPage.propTypes = {
+  material: PropTypes.object.isRequired,
+};
+
+export default createQueryRenderer(MaterialPage, {
+  query: graphql`
+    query MaterialPageQuery($globalId: ID!) {
+      material: node(id: $globalId) {
+        ... on Material {
+          id
+          name
+        }
+      }
+    }
+  `,
+  queriesParams: props => ({ globalId: props.match.params.materialId }),
+});

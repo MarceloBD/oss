@@ -4,7 +4,6 @@ import styled, { keyframes, css } from 'styled-components';
 
 import MainItem from '../elements/ClickableBigItem';
 import SubItem from '../elements/ClickableSmallItem';
-import theme from '../utils/theme';
 
 const DropDownItemBox = styled.div`
   display: inline-flex;
@@ -41,7 +40,7 @@ const SubItemStyled = styled(SubItem)`
         `}
 `;
 
-const DropDownItem = ({ text, ...props }) => {
+const DropDownItem = ({ text, link, ...props }) => {
   const [dropdown, setDropDown] = useState(false);
 
   return (
@@ -49,7 +48,7 @@ const DropDownItem = ({ text, ...props }) => {
       <MainItem text={text} onClick={() => setDropDown(!dropdown)} />
       {dropdown && (
         <>
-          <SubItemStyled text={text} dropdown={dropdown} />
+          <SubItemStyled text={text} dropdown={dropdown} link={link} />
         </>
       )}
     </DropDownItemBox>
@@ -58,6 +57,7 @@ const DropDownItem = ({ text, ...props }) => {
 
 DropDownItem.propTypes = {
   text: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 export default DropDownItem;

@@ -14,8 +14,8 @@ export default makeRouteConfig(
       <Route Component={NavbarLayout}>
         <Route path="/" Component={HomePage} />
         <Route path="/login" Component={LoginPage} />
-        <Route path="/materials" Component={MaterialsListPage} />
-        <Route path="/material" Component={MaterialPage} />
+        <Route path="/materials/:materialType" Component={MaterialsListPage} />
+        <Route path="/material/:materialId" Component={MaterialPage} />
         <Route path="/create" Component={CreateMaterialPage} />
         <Redirect from="*" to="/" />
       </Route>

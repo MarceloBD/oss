@@ -9,6 +9,8 @@ const LinkStyled = styled(Link)`
   background-color: transparent;
   outline: none;
   text-decoration: none;
+  display: contents;
+  color: inherit;
 `;
 
 const Clickable = ({ children, onClick, link, disabled }) => {

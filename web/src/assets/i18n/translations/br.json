@@ -24,5 +24,14 @@
     "vote": "Votar",
     "votes": "Votos"
   },
-  "search": "Buscar"
+  "search": "Buscar",
+  "type": {
+    "all": "todos",
+    "software": "software",
+    "hardware": "hardware",
+    "teaching": "ensino",
+    "research data": "dados de pesquisa",
+    "artistic": "artistico",
+    "others": "outros"
+  }
 }

@@ -8,6 +8,7 @@ import expressPlayground from 'graphql-playground-middleware-express';
 import Auth from './modules/auth/Auth';
 import schema from './modules/schema';
 import { isProduction } from './utils/environment';
+import { generateAnswerGraph } from './utils/keyword';
 import photon from './utils/photon';
 
 const graphQLServer = express();
@@ -44,3 +45,5 @@ graphQLServer.get('/playground', expressPlayground({ endpoint: '/graphql' }));
 graphQLServer.listen(process.env.GRAPHQL_PORT, () =>
   console.log(`GraphQL Server is now running on ${process.env.GRAPHQL_BASE_URL}`),
 );
+
+generateAnswerGraph('marcelo material');

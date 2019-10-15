@@ -6,13 +6,14 @@ import { createQueryRenderer, graphql } from 'utils/relay';
 
 import Title from '../../components/TitleIcon';
 import MaterialsList from '../../compositions/ItemsList';
+import theme from '../../utils/theme';
 
 const TitleBox = styled.div`
   margin: 33px 0px 0px 87px;
 `;
 
 const MaterialListBox = styled.div`
-  margin: 0px 128px;
+  margin: ${theme.spacing.unit(2)} 128px;
 `;
 
 const MaterialsListPage = ({ system }) => {
@@ -29,6 +30,7 @@ const MaterialsListPage = ({ system }) => {
             description: 'tsete',
             vote: 10,
             type: material.type,
+            id: material.id,
           }))}
         />
       </MaterialListBox>
@@ -42,12 +44,13 @@ MaterialsListPage.propTypes = {
 
 export default createQueryRenderer(MaterialsListPage, {
   query: graphql`
-    query MaterialsListPageQuery {
+    query MaterialsListPageQuery($materialType: String!) {
       system {
-        posts {
+        posts(type: $materialType) {
           edges {
             node {
               material {
+                id
                 name
                 type
               }
@@ -57,4 +60,5 @@ export default createQueryRenderer(MaterialsListPage, {
       }
     }
   `,
+  queriesParams: props => ({ materialType: props.match.params.materialType }),
 });

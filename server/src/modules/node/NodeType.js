@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from 'graphql';
 import { fromGlobalId, globalIdField, nodeDefinitions } from 'graphql-relay';
 
-import { prisma } from '../../utils/prisma-client';
+import photon from '../../utils/photon';
 
 const isFunction = object => typeof object === 'function';
 const registeredTypes = {};
@@ -12,7 +12,8 @@ const getNode = async (type, id, user) => {
     const obj = await getters[type]({ id, user });
     if (obj) return { ...obj, nodeType: type };
   }
-  return { ...(await prisma[type]({ id })), nodeType: type };
+  const [result] = await photon[`${type}s`]({ where: { id } });
+  return { ...result, nodeType: type };
 };
 
 const { nodeInterface, nodeField: NodeType } = nodeDefinitions(

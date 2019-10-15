@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
+import Clickable from '../elements/Clickable';
 import theme from '../utils/theme';
 
 const ClickableListItemBox = styled.div`
@@ -37,21 +38,24 @@ const Box = styled.div`
   align-items: center;
 `;
 
-const ClickableListItem = ({ item }) => (
-  <ClickableListItemBox>
-    <MainInfoBox>
-      <TitleBox>{item.title}</TitleBox>
-      <DescriptionBox>{item.description}</DescriptionBox>
-    </MainInfoBox>
-    <AttributesBox>
-      <Box>{item.type}</Box>
-      <Box>{item.vote}</Box>
-    </AttributesBox>
-  </ClickableListItemBox>
+const ClickableListItem = ({ item, link }) => (
+  <Clickable link={link}>
+    <ClickableListItemBox>
+      <MainInfoBox>
+        <TitleBox>{item.title}</TitleBox>
+        <DescriptionBox>{item.description}</DescriptionBox>
+      </MainInfoBox>
+      <AttributesBox>
+        <Box>{item.type}</Box>
+        <Box>{item.vote}</Box>
+      </AttributesBox>
+    </ClickableListItemBox>
+  </Clickable>
 );
 
 ClickableListItem.propTypes = {
   item: PropTypes.object.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 export default ClickableListItem;

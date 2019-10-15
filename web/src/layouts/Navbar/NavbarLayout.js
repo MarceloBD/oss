@@ -33,7 +33,15 @@ const NavbarContent = styled.div`
   box-sizing: border-box;
 `;
 
-const LogoBox = styled.div``;
+const LogoBox = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${theme.palette.background.default};
+`;
+
+const UserNameBox = styled.div`
+  margin-left: ${theme.spacing.unit(4)};
+`;
 
 const ButtonsBox = styled.div`
   display: flex;
@@ -72,14 +80,19 @@ const NavbarLayout = ({ children, viewer }) => {
       <NavbarContent>
         <LogoBox>
           <Logo image={{ src: 'assets/imgs/small-logo.png', width: 70 }} link="/" />
+          {isLogged && <UserNameBox>Olá, {get(viewer, 'name')}</UserNameBox>}
         </LogoBox>
         <ButtonsBox>
           <SearchBox>
             <SearchInput placeholder="Buscar" />
           </SearchBox>
           <ChangeLanguage />
-          <Button text={isLogged ? get(viewer, 'name') : t('loginPage.signIn')} link="/login" disabled={isLogged} />
-          {isLogged && <Button text={t('loginPage.logOut')} onClick={signOut} />}
+
+          {isLogged ? (
+            <Button text={t('loginPage.logOut')} onClick={signOut} />
+          ) : (
+            <Button text={t('loginPage.signIn')} link="/login" />
+          )}
           <AvatarStyled />
         </ButtonsBox>
       </NavbarContent>

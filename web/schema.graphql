@@ -203,7 +203,7 @@ type SignUpMutationPayload {
 
 type System {
   users(skip: Int, after: String, before: String, first: Int, last: Int): UserConnection
-  posts(skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
+  posts(type: String, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
 }
 
 input UpdateLastAccessMutationInput {

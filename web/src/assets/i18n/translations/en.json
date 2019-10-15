@@ -31,5 +31,14 @@
     "vote": "Vote",
     "votes": "Votes"
   },
-  "search": "Search"
+  "search": "Search",
+  "type": {
+    "all": "all",
+    "software": "software",
+    "hardware": "hardware",
+    "teaching": "learning",
+    "research data": "research data",
+    "artistic": "artistic",
+    "others": "others"
+  }
 }
