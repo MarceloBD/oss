@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { createQueryRenderer, graphql } from 'utils/relay';
 
@@ -26,6 +26,12 @@ const DescriptionAttributeAuthorBox = styled.div`
   display: flex;
   flex-direction: column;
   flex: 2;
+  padding: ${theme.spacing.unit(2)};
+  box-sizing: border-box;
+`;
+
+const DescriptionBox = styled.div`
+  min-height: ${theme.spacing.unit(40)};
 `;
 
 const AtributeAuthorBox = styled.div`
@@ -41,47 +47,83 @@ const AttributeTag = styled.div``;
 
 const AuthorsBox = styled.div`
   flex: 1;
+  margin-left: ${theme.spacing.unit(2)};
 `;
 
 const VoteLinkReferenceBox = styled.div`
   flex: 1;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 `;
 
-const VotesBox = styled.div``;
+const VotesBox = styled.div`
+  width: 100%;
+  max-width: ${theme.spacing.unit(35)};
+  height: ${props => props.height}px;
+`;
 const LinkBox = styled.div`
   margin-top: ${theme.spacing.unit(3)};
+  width: 100%;
 `;
 
 const ReferencesBox = styled.div`
   margin-top: ${theme.spacing.unit(3)};
+  width: 100%;
 `;
 
 const MaterialPage = ({ material }) => {
   const { t } = useStateValue();
+  const [voteBoxHeight, setVoteBoxHeight] = useState();
+
+  const voteBoxRef = useRef();
+
+  useEffect(() => setVoteBoxHeight(voteBoxRef.current.offsetWidth), [voteBoxRef]);
+
+  window.addEventListener('resize', () => {
+    setVoteBoxHeight(voteBoxRef.current.offsetWidth);
+  });
+
   return (
     <>
       <TitleBox>{material.name}</TitleBox>
       <MaterialBox>
         <DescriptionAttributeAuthorBox>
-          <ItemBox tag={t('materialPage.description')} content="text" />
+          <DescriptionBox>
+            <ItemBox tag={t('materialPage.description')} content={material.description} />
+          </DescriptionBox>
+
           <AtributeAuthorBox>
             <AttributeBox>
-              <AttributeTag>Atributo</AttributeTag>
+              <ItemBox
+                tag={t('materialPage.atribute')}
+                content={<AttributeTag>Lingua - {material.language}</AttributeTag>}
+              />
             </AttributeBox>
             <AuthorsBox>
-              <ItemBox tag={t('materialPage.authors')} content="text " />
+              <ItemBox
+                tag={t('materialPage.authors')}
+                content={material.authors.edges.map(({ node: author }) => author.name)}
+              />
             </AuthorsBox>
           </AtributeAuthorBox>
         </DescriptionAttributeAuthorBox>
         <VoteLinkReferenceBox>
-          <VotesBox>
-            <Vote number={40} />
+          <VotesBox ref={voteBoxRef} height={voteBoxHeight}>
+            <Vote number={0} size={(voteBoxHeight * 2) / 5} />
           </VotesBox>
           <LinkBox>
-            <ItemBox tag={t('materialPage.link')} content="text " />
+            <ItemBox
+              tag={t('materialPage.link')}
+              content={
+                <a href={material.url} target="_blank" rel="noopener noreferrer">
+                  {material.url}
+                </a>
+              }
+            />
           </LinkBox>
           <ReferencesBox>
-            <ItemBox tag={t('materialPage.references')} content="text " />
+            <ItemBox tag={t('materialPage.references')} content="" />
           </ReferencesBox>
         </VoteLinkReferenceBox>
       </MaterialBox>
@@ -100,6 +142,17 @@ export default createQueryRenderer(MaterialPage, {
         ... on Material {
           id
           name
+          description
+          language
+          url
+          authors {
+            edges {
+              node {
+                id
+                name
+              }
+            }
+          }
         }
       }
     }

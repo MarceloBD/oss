@@ -1,0 +1,2016 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateModel",
+      "name": "Author",
+      "dbName": "author",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "KnexMigration",
+      "dbName": "knex_migrations",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "License",
+      "dbName": "license",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Material",
+      "dbName": "material",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Login",
+      "dbName": "login",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "MaterialAuthor",
+      "dbName": "material_author",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "MaterialTargetAudience",
+      "dbName": "material_target_audience",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "OperatingSystem",
+      "dbName": "operating_system",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Post",
+      "dbName": "post",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "PostComment",
+      "dbName": "post_comment",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "PostVote",
+      "dbName": "post_vote",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "ProgrammingLanguage",
+      "dbName": "programming_language",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Relation",
+      "dbName": "relation",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Software",
+      "dbName": "software",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "SoftwareOperatingSystem",
+      "dbName": "software_operating_system",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "SoftwareProgrammingLanguage",
+      "dbName": "software_programming_language",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Staff",
+      "dbName": "staff",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "TargetAudience",
+      "dbName": "target_audience",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "User",
+      "dbName": "user",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Version",
+      "dbName": "version",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "materialAuthor",
+      "type": {
+        "Relation": {
+          "to": "MaterialAuthor",
+          "to_fields": [],
+          "name": "AuthorToMaterialAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "subscriptionDate",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "dbName": "subscription_date",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "type",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "AuthorToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "user_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Author",
+      "name": "materials",
+      "type": {
+        "Relation": {
+          "to": "Material",
+          "to_fields": [
+            "id"
+          ],
+          "name": "material_author",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "KnexMigration",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "KnexMigration",
+      "name": "batch",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "KnexMigration",
+      "name": "migrationTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "dbName": "migration_time",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "KnexMigration",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "License",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "License",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "License",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "License",
+      "name": "licenseType",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "dbName": "license_type",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "License",
+      "name": "material",
+      "type": {
+        "Relation": {
+          "to": "Material",
+          "to_fields": [],
+          "name": "LicenseToMaterial",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "License",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "License",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "License",
+      "name": "version",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Boolean": true
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "domainName",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "dbName": "domain_name",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "hash",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "language",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "license",
+      "type": {
+        "Relation": {
+          "to": "License",
+          "to_fields": [
+            "id"
+          ],
+          "name": "LicenseToMaterial",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "license_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "materialAuthor",
+      "type": {
+        "Relation": {
+          "to": "MaterialAuthor",
+          "to_fields": [],
+          "name": "MaterialToMaterialAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "materialTargetAudience",
+      "type": {
+        "Relation": {
+          "to": "MaterialTargetAudience",
+          "to_fields": [],
+          "name": "MaterialToMaterialTargetAudience",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "openSourceId",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "dbName": "open_source_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "post",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [],
+          "name": "MaterialToPost",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "relationFrom",
+      "type": {
+        "Relation": {
+          "to": "Relation",
+          "to_fields": [],
+          "name": "MaterialRelationToRelationMaterialFrom",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "relationTo",
+      "type": {
+        "Relation": {
+          "to": "Relation",
+          "to_fields": [],
+          "name": "MaterialRelationToRelationMaterialTo",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "sourceType",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "dbName": "source_type",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "type",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "url",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "version",
+      "type": {
+        "Relation": {
+          "to": "Version",
+          "to_fields": [
+            "id"
+          ],
+          "name": "MaterialToVersion",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "version_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Material",
+      "name": "authors",
+      "type": {
+        "Relation": {
+          "to": "Author",
+          "to_fields": [
+            "id"
+          ],
+          "name": "material_author",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Login",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Login",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Boolean": true
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Login",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "LoginToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "user_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialAuthor",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialAuthor",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialAuthor",
+      "name": "author",
+      "type": {
+        "Relation": {
+          "to": "Author",
+          "to_fields": [
+            "id"
+          ],
+          "name": "AuthorToMaterialAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "author_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialAuthor",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialAuthor",
+      "name": "material",
+      "type": {
+        "Relation": {
+          "to": "Material",
+          "to_fields": [
+            "id"
+          ],
+          "name": "MaterialToMaterialAuthor",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "material_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialAuthor",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialTargetAudience",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialTargetAudience",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialTargetAudience",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialTargetAudience",
+      "name": "material",
+      "type": {
+        "Relation": {
+          "to": "Material",
+          "to_fields": [
+            "id"
+          ],
+          "name": "MaterialToMaterialTargetAudience",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "material_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialTargetAudience",
+      "name": "targetAudience",
+      "type": {
+        "Relation": {
+          "to": "TargetAudience",
+          "to_fields": [
+            "id"
+          ],
+          "name": "MaterialTargetAudienceToTargetAudience",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "target_audience_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "MaterialTargetAudience",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "OperatingSystem",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "OperatingSystem",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "OperatingSystem",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "OperatingSystem",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "OperatingSystem",
+      "name": "softwareOperatingSystem",
+      "type": {
+        "Relation": {
+          "to": "SoftwareOperatingSystem",
+          "to_fields": [],
+          "name": "OperatingSystemToSoftwareOperatingSystem",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "OperatingSystem",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Boolean": true
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "checked",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Boolean": false
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "material",
+      "type": {
+        "Relation": {
+          "to": "Material",
+          "to_fields": [
+            "id"
+          ],
+          "name": "MaterialToPost",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "material_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "numberOfAccess",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "optional",
+      "dbName": "number_of_access",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "postComment",
+      "type": {
+        "Relation": {
+          "to": "PostComment",
+          "to_fields": [],
+          "name": "PostToPostComment",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "postVote",
+      "type": {
+        "Relation": {
+          "to": "PostVote",
+          "to_fields": [],
+          "name": "PostToPostVote",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "user_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "comment",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "post",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostToPostComment",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "post_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostComment",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostCommentToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "user_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostVote",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostVote",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostVote",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostVote",
+      "name": "post",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostToPostVote",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "post_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostVote",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "PostVote",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "PostVoteToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "user_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ProgrammingLanguage",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ProgrammingLanguage",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ProgrammingLanguage",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ProgrammingLanguage",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ProgrammingLanguage",
+      "name": "softwareProgrammingLanguage",
+      "type": {
+        "Relation": {
+          "to": "SoftwareProgrammingLanguage",
+          "to_fields": [],
+          "name": "ProgrammingLanguageToSoftwareProgrammingLanguage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ProgrammingLanguage",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Relation",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Relation",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Relation",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Relation",
+      "name": "materialFrom",
+      "type": {
+        "Relation": {
+          "to": "Material",
+          "to_fields": [
+            "id"
+          ],
+          "name": "MaterialRelationToRelationMaterialFrom",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "material_from_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Relation",
+      "name": "materialTo",
+      "type": {
+        "Relation": {
+          "to": "Material",
+          "to_fields": [
+            "id"
+          ],
+          "name": "MaterialRelationToRelationMaterialTo",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "material_to_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Relation",
+      "name": "type",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Relation",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Software",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Software",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Software",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Software",
+      "name": "platform",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Software",
+      "name": "softwareOperatingSystem",
+      "type": {
+        "Relation": {
+          "to": "SoftwareOperatingSystem",
+          "to_fields": [],
+          "name": "SoftwareToSoftwareOperatingSystem",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Software",
+      "name": "softwareProgrammingLanguage",
+      "type": {
+        "Relation": {
+          "to": "SoftwareProgrammingLanguage",
+          "to_fields": [],
+          "name": "SoftwareToSoftwareProgrammingLanguage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Software",
+      "name": "totalSizeKb",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "dbName": "total_size_kb",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Software",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareOperatingSystem",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareOperatingSystem",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareOperatingSystem",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareOperatingSystem",
+      "name": "operatingSystem",
+      "type": {
+        "Relation": {
+          "to": "OperatingSystem",
+          "to_fields": [
+            "id"
+          ],
+          "name": "OperatingSystemToSoftwareOperatingSystem",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "operating_system_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareOperatingSystem",
+      "name": "software",
+      "type": {
+        "Relation": {
+          "to": "Software",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SoftwareToSoftwareOperatingSystem",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "software_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareOperatingSystem",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareProgrammingLanguage",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareProgrammingLanguage",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareProgrammingLanguage",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareProgrammingLanguage",
+      "name": "programmingLanguage",
+      "type": {
+        "Relation": {
+          "to": "ProgrammingLanguage",
+          "to_fields": [
+            "id"
+          ],
+          "name": "ProgrammingLanguageToSoftwareProgrammingLanguage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "programming_language_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareProgrammingLanguage",
+      "name": "software",
+      "type": {
+        "Relation": {
+          "to": "Software",
+          "to_fields": [
+            "id"
+          ],
+          "name": "SoftwareToSoftwareProgrammingLanguage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "software_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "SoftwareProgrammingLanguage",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Staff",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Staff",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Staff",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Staff",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Staff",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "StaffToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "dbName": "user_id",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TargetAudience",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TargetAudience",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TargetAudience",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TargetAudience",
+      "name": "materialTargetAudience",
+      "type": {
+        "Relation": {
+          "to": "MaterialTargetAudience",
+          "to_fields": [],
+          "name": "MaterialTargetAudienceToTargetAudience",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TargetAudience",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "TargetAudience",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Boolean": true
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "affiliction",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "author",
+      "type": {
+        "Relation": {
+          "to": "Author",
+          "to_fields": [],
+          "name": "AuthorToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "cellphone",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "document",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "email",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "login",
+      "type": {
+        "Relation": {
+          "to": "Login",
+          "to_fields": [],
+          "name": "LoginToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "password",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "post",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [],
+          "name": "PostToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "postComment",
+      "type": {
+        "Relation": {
+          "to": "PostComment",
+          "to_fields": [],
+          "name": "PostCommentToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "postVote",
+      "type": {
+        "Relation": {
+          "to": "PostVote",
+          "to_fields": [],
+          "name": "PostVoteToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "staff",
+      "type": {
+        "Relation": {
+          "to": "Staff",
+          "to_fields": [],
+          "name": "StaffToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Version",
+      "name": "id",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Version",
+      "name": "active",
+      "type": {
+        "Base": "Boolean"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Version",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "created_at",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Version",
+      "name": "material",
+      "type": {
+        "Relation": {
+          "to": "Material",
+          "to_fields": [],
+          "name": "MaterialToVersion",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Version",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Version",
+      "name": "releaseDate",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "optional",
+      "dbName": "release_date",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Version",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "dbName": "updated_at",
+      "isUnique": false
+    }
+  ]
+}

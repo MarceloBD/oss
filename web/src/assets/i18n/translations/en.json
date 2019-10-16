@@ -20,12 +20,17 @@
     "description": "Description",
     "authors": "Authors",
     "link": "Link",
-    "references": "References"
+    "references": "References",
+    "atribute": "Atributes"
   },
   "createMaterialPage": {
     "title": "Title",
     "description": "Description",
-    "submit": "Submit"
+    "submit": "Submit",
+    "language": "Language",
+    "link": "Material's link",
+    "hash": "Material' hash",
+    "type": "Type"
   },
   "vote": {
     "vote": "Vote",

@@ -1,9 +1,15 @@
 {
   "loginPage": {
-    "signIn": "Entrar",
-    "signUp": "Cadastrar",
+    "signUp": "Criar conta",
     "signUpButton": "Criar",
-    "logOut": "Sair"
+    "name": "Nome",
+    "document": "Documento",
+    "email": "Email",
+    "password": "Senha",
+    "cellphone": "Telefone",
+    "affiliction": "Afiliação",
+    "logOut": "Sair",
+    "signIn": "Entrar"
   },
   "homePage": {
     "title": "Seja bem vindo ao serviço de material livre",
@@ -13,12 +19,17 @@
     "description": "Descrição",
     "authors": "Autores",
     "link": "Link",
-    "references": "Referências"
+    "references": "Referências",
+    "atribute": "Atributos"
   },
   "createMaterialPage": {
     "title": "Título",
     "description": "Descrição",
-    "submit": "Enviar"
+    "submit": "Enviar",
+    "language": "Idioma",
+    "link": "Link do material",
+    "hash": "Hash do material",
+    "type": "Tipo"
   },
   "vote": {
     "vote": "Votar",

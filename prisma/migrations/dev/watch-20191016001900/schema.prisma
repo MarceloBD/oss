@@ -17,7 +17,7 @@ model Author {
   updatedAt        DateTime         @map("updated_at")
   user             User?            @map("user_id")
 
-  materials        Material[]      @relation(name: "material_author", references: [id])
+  materials        Material[]      @relation("material_author")
 
   @@map("author")
 }
@@ -63,7 +63,7 @@ model Material {
   type                   String
   url                    String?
   version                Version?                 @map("version_id")
-  authors                Author[]                 @relation(name:"material_author", references: [id])
+  authors                Author[]                 @relation("material_author")
 
   @@map("material")
 }

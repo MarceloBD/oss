@@ -7,6 +7,7 @@ import theme from '../utils/theme';
 const TagContentBox = styled.div`
   border: 1px solid ${theme.palette.primary[200]};
   border-radius: ${theme.border.radius};
+  height: 100%;
 `;
 
 const TagBox = styled.div`

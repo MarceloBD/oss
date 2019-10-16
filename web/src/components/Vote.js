@@ -14,12 +14,13 @@ const VoteBox = styled.div`
   justify-content: space-evenly;
   align-items: center;
   border-radius: ${theme.border.radius};
+  height: 100%;
 `;
 
 const ToVoteBox = styled.div`
   border-radius: 50%;
-  width: ${theme.spacing.unit(10)};
-  height: ${theme.spacing.unit(10)};
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
   background: ${theme.palette.primary.default};
   color: ${theme.palette.background.default};
   display: flex;
@@ -27,7 +28,7 @@ const ToVoteBox = styled.div`
   align-items: center;
 `;
 
-const Vote = ({ number }) => {
+const Vote = ({ number, size }) => {
   const { t } = useStateValue();
 
   return (
@@ -35,7 +36,7 @@ const Vote = ({ number }) => {
       <div>{t('vote.votes')}</div>
       <div>{number}</div>
       <Clickable>
-        <ToVoteBox>{t('vote.vote')}</ToVoteBox>
+        <ToVoteBox size={size}>{t('vote.vote')}</ToVoteBox>
       </Clickable>
     </VoteBox>
   );
@@ -43,6 +44,11 @@ const Vote = ({ number }) => {
 
 Vote.propTypes = {
   number: PropTypes.number.isRequired,
+  size: PropTypes.number,
+};
+
+Vote.defaultProps = {
+  size: theme.spacing.unit(10),
 };
 
 export default Vote;

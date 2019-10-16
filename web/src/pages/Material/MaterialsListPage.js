@@ -27,8 +27,8 @@ const MaterialsListPage = ({ system }) => {
         <MaterialsList
           items={system.posts.edges.map(({ node: { material } }) => ({
             title: material.name,
-            description: 'tsete',
-            vote: 10,
+            description: material.description,
+            vote: 0,
             type: material.type,
             id: material.id,
           }))}
@@ -52,6 +52,7 @@ export default createQueryRenderer(MaterialsListPage, {
               material {
                 id
                 name
+                description
                 type
               }
             }

@@ -6,6 +6,10 @@ type Auth {
 input CreateNewPostMutationInput {
   title: String
   description: String
+  language: String
+  url: String
+  type: String
+  hash: String
   clientMutationId: String
 }
 
@@ -79,6 +83,10 @@ type LogoutMutationPayload {
 type Material implements Node {
   name: String
   type: String
+  description: String
+  language: String
+  url: String
+  authors(skip: Int, after: String, before: String, first: Int, last: Int): UserConnection
 
   # The ID of an object
   id: ID!

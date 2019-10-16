@@ -36,6 +36,7 @@ const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-transform: capitalize;
 `;
 
 const ClickableListItem = ({ item, link }) => (
@@ -46,7 +47,7 @@ const ClickableListItem = ({ item, link }) => (
         <DescriptionBox>{item.description}</DescriptionBox>
       </MainInfoBox>
       <AttributesBox>
-        <Box>{item.type}</Box>
+        <Box>{item.type.toLowerCase()}</Box>
         <Box>{item.vote}</Box>
       </AttributesBox>
     </ClickableListItemBox>
