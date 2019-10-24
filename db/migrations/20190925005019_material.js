@@ -24,7 +24,7 @@ exports.up = async knex => {
 
     t.string("source_type");
 
-    t.string("open_source_id");
+    t.string("open_source_id").unique();
 
     t.string("hash");
 

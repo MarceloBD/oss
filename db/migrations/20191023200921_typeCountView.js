@@ -4,4 +4,6 @@ exports.up = async function(knex) {
   );
 };
 
-exports.down = async function(knex) {};
+exports.down = async function(knex) {
+  await knex.raw("drop VIEW material_type_count;");
+};
