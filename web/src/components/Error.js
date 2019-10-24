@@ -8,7 +8,7 @@ const Error = ({ errors, component, match }) => {
   useEffect(() => {
     if (!component) {
       if (checkError(errors, 'unauthenticated')) {
-        window.location = `${process.env.AUTH_URL}/#/login?redirect=${encodeURIComponent(
+        window.location = `${process.env.PORTAL_URL}/#/login?redirect=${encodeURIComponent(
           match.location.pathname,
         )}&baseurl=${process.env.PORTAL_URL}`;
       } else if (checkError(errors, 'unauthorized')) {

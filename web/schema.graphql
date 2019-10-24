@@ -3,6 +3,13 @@ type Auth {
   hasStaffPermission: Boolean
 }
 
+type Constant implements Node {
+  materialTypes: [String]
+
+  # The ID of an object
+  id: ID!
+}
+
 input CreateNewPostMutationInput {
   title: String
   description: String
@@ -154,7 +161,7 @@ type PostEdge {
 
 type Query {
   auth: Auth
-  viewer: User
+  viewer(hasUser: Boolean): User
 
   # Fetches an object given its ID
   node(
@@ -212,6 +219,7 @@ type SignUpMutationPayload {
 type System {
   users(skip: Int, after: String, before: String, first: Int, last: Int): UserConnection
   posts(type: String, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
+  constants: Constant
 }
 
 input UpdateLastAccessMutationInput {

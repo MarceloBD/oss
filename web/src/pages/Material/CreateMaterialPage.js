@@ -3,8 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
+import SelectInput from '../../elements/Input/SelectInput';
 import CreateNewPostMutation from '../../modules/post/mutations/CreateNewPostMutation';
 import { useStateValue } from '../../utils/context';
+import { createQueryRenderer, graphql } from '../../utils/relay';
 import theme from '../../utils/theme';
 import languages from './languages.json';
 
@@ -55,8 +57,9 @@ const SelectBox = styled.div`
   }
 `;
 
-const CreateMaterialPage = () => {
+const CreateMaterialPage = ({ viewer, system }) => {
   const { t } = useStateValue();
+  console.log(viewer, system);
   return (
     <>
       <Formik
@@ -64,9 +67,10 @@ const CreateMaterialPage = () => {
         validationSchema={validationSchema}
         onSubmit={onCreate}
       >
-        {({ handleSubmit, status, setStatus, handleChange }) => {
+        {({ handleSubmit, status, setStatus, handleChange, values }) => {
           return (
             <Form onSubmit={handleSubmit}>
+              {values.type === 'software' && <>software</>}
               <FieldsBox>
                 <FieldBox>
                   <Field
@@ -81,22 +85,11 @@ const CreateMaterialPage = () => {
                 </FieldBox>
 
                 <FieldBox>
-                  <SelectBox>
-                    <Field
-                      type="type"
-                      placeholder={t('createMaterialPage.type')}
-                      name="type"
-                      component="input"
-                      list="types"
-                    />
-                    <Field id="types" placeholder={t('createMaterialPage.type')} component="datalist">
-                      {TYPES.map(type => (
-                        <Field value={type} component="option" key={type}>
-                          {type}
-                        </Field>
-                      ))}
-                    </Field>
-                  </SelectBox>
+                  <SelectInput
+                    items={system.constants.materialTypes}
+                    placeholder={t('createMaterialPage.type')}
+                    name="type"
+                  />
                 </FieldBox>
 
                 <FieldBox>
@@ -134,6 +127,30 @@ const CreateMaterialPage = () => {
                 </FieldBox>
 
                 <FieldBox>
+                  <SelectInput items={['teste', 'teste2']} name="domain" placeholder="dominio" />
+                </FieldBox>
+
+                <FieldBox>
+                  <SelectInput items={[]} name="source" placeholder="sourcetype" />
+                </FieldBox>
+
+                <FieldBox>
+                  <SelectInput items={[]} name="license" placeholder="licensename" />
+                </FieldBox>
+
+                <FieldBox>
+                  <Field type="licenseVersion" placeholder="licenseVersion" name="licenseVersion" />
+                </FieldBox>
+
+                <FieldBox>
+                  <Field type="versionName" placeholder="versionName" name="versionName" />
+                </FieldBox>
+
+                <FieldBox>
+                  <Field type="releaseDate" placeholder="releaseDate" name="releaseDate" />
+                </FieldBox>
+
+                <FieldBox>
                   <Field type="hash" placeholder={t('createMaterialPage.hash')} name="hash" />
                 </FieldBox>
 
@@ -154,4 +171,17 @@ const CreateMaterialPage = () => {
 
 CreateMaterialPage.propTypes = {};
 
-export default CreateMaterialPage;
+export default createQueryRenderer(CreateMaterialPage, {
+  query: graphql`
+    query CreateMaterialPageQuery {
+      viewer(hasUser: true) {
+        id
+      }
+      system {
+        constants {
+          materialTypes
+        }
+      }
+    }
+  `,
+});

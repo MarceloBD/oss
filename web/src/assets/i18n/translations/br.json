@@ -44,5 +44,10 @@
     "research data": "dados de pesquisa",
     "artistic": "artistico",
     "others": "outros"
+  },
+  "constants": {
+    "materialTypes": {
+      "SOFTWARE": "Software"
+    }
   }
 }

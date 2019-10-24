@@ -1,18 +1,17 @@
 import { GraphQLObjectType } from 'graphql';
 
-import { hasStaffPermission } from '../auth/Auth';
+import ConstantType from '../constant/ConstantType';
 import { PostQuery } from '../post/PostType';
 import { UserQuery } from '../user/UserType';
 
-const getSystem = async (root, args, context) => {
-  return {};
-};
+const getSystem = async () => ({});
 
 const GraphQLSystem = new GraphQLObjectType({
   name: 'System',
   fields: {
     users: UserQuery,
     posts: PostQuery,
+    constants: { type: ConstantType, resolve: () => ({}) },
   },
 });
 
