@@ -1,4 +1,4 @@
-import { withRouter, Link } from 'found';
+import { Link, withRouter } from 'found';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -30,15 +30,10 @@ const Clickable = ({ children, onClick, link, disabled }) => {
     return <>{children}</>;
   }
 
-  // eslint-disable-next-line no-nested-ternary
   return typeof children === 'string' ? (
-    link ? (
-      <LinkStyled onClick={goTo} onKeyPress={e => onKeyPress(e)} tabIndex="0" to={link}>
-        {children}
-      </LinkStyled>
-    ) : (
-      <>{children}</>
-    )
+    <LinkStyled onClick={goTo} onKeyPress={e => onKeyPress(e)} tabIndex="0">
+      {children}
+    </LinkStyled>
   ) : (
     React.cloneElement(link ? <LinkStyled to={link}>{children}</LinkStyled> : children, {
       onClick: goTo,

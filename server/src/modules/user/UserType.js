@@ -51,7 +51,7 @@ const UserType = registerGraphQLNodeObjectType('user')({
     },
     posts: {
       type: PostConnection.connectionType,
-      resolve: (user, args, context) => {},
+      resolve: () => {},
     },
 
     currentEnrollment: {
@@ -82,7 +82,7 @@ export const UserQuery = {
   type: UserConnection.connectionType,
   args: connectionArgs,
   resolve: async (root, args, context) => {
-    const users = await context.prisma.users();
+    const users = await context.photon.users();
     return connectionFromArray(users, args);
   },
 };

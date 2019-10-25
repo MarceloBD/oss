@@ -31,6 +31,10 @@ const Avatar = ({ link, ...props }) => {
   );
 };
 Avatar.propTypes = {
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
+};
+
+Avatar.defaultProps = {
+  link: null,
 };
 export default Avatar;

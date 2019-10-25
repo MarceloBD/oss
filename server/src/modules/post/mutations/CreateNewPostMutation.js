@@ -1,4 +1,4 @@
-import { GraphQLString } from 'graphql';
+import { GraphQLString, GraphQLList } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import get from 'lodash/get';
 import moment from 'moment-timezone';
@@ -7,7 +7,7 @@ import { TYPES } from '../../material/MaterialType';
 import knex from '../../../utils/knex';
 
 export const createNewPost = async (
-  { clientMutationId, title, description, language, url, type, hash, domain, license, licenseVersion, source },
+  { clientMutationId, title, description, language, url, type, hash, domain, license, licenseVersion, source, authors },
   context,
 ) => {
   const othersId = TYPES.others;
@@ -30,13 +30,12 @@ export const createNewPost = async (
     }
     return count;
   };
-
   await knex.transaction(trx => {
     knex('material_type_count')
       .transacting(trx)
       .then(async resp => {
         const count = getCount(resp);
-        await context.photon.posts.create({
+        const post = await context.photon.posts.create({
           data: {
             material: {
               create: {
@@ -55,6 +54,33 @@ export const createNewPost = async (
             user: { connect: { id: context.user.id } },
           },
         });
+
+        const material = await context.photon.posts.findOne({ where: { id: post.id } }).material();
+
+        const createAuthors = await authors.map(async author => {
+          const userId = author === 'myself' ? context.user.id : author;
+          const newAuthor = await context.photon.authors.create({
+            data: {
+              user: {
+                connect: {
+                  id: parseInt(userId, 10),
+                },
+              },
+            },
+          });
+
+          await context.photon.materialAuthors.create({
+            data: {
+              author: {
+                connect: { id: newAuthor.id },
+              },
+              material: {
+                connect: { id: material.id },
+              },
+            },
+          });
+        });
+        Promise.all(createAuthors);
       })
       .then(trx.commit)
       .catch(trx.rollback);
@@ -75,7 +101,7 @@ export default mutationWithClientMutationId({
     license: { type: GraphQLString },
     licenseVersion: { type: GraphQLString },
     source: { type: GraphQLString },
-
+    authors: { type: new GraphQLList(GraphQLString) },
     hash: { type: GraphQLString },
   },
   outputFields: {},

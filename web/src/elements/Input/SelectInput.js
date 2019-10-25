@@ -24,11 +24,11 @@ const SelectInput = ({ items, placeholder, name }) => {
   return (
     <SelectBox>
       <Arrow>
-        <Field type={name} placeholder={placeholder} name={name} component="input" list={name} />
+        <Field placeholder={placeholder} name={name} component="input" list={name} />
       </Arrow>
       <Field id={name} placeholder={placeholder} component="datalist">
-        {items.map(item => (
-          <Field value={item} component="option" key={item}>
+        {items.map((item, idx) => (
+          <Field value={item} component="option" key={idx}>
             {item}
           </Field>
         ))}

@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
+import InfinitySelectInputs from '../../compositions/InfinitySelectInputs';
 import SelectInput from '../../elements/Input/SelectInput';
 import CreateNewPostMutation from '../../modules/post/mutations/CreateNewPostMutation';
 import { useStateValue } from '../../utils/context';
@@ -17,11 +18,26 @@ const validationSchema = () =>
     description: Yup.string().required('Senha é um campo obrigatório'),
   });
 
-const onCreate = ({ title, description, language, link, type, hash, domain, license, licenseVersion, source }, { setStatus, resetForm }) => {
+const onCreate = (
+  { title, description, language, link, type, hash, domain, license, licenseVersion, source, authors },
+  { setStatus, resetForm },
+) => {
   CreateNewPostMutation.commit({
-    variables: { title, description, language, url: link, type, hash, domain, license, licenseVersion, source },
+    variables: {
+      title,
+      description,
+      language,
+      url: link,
+      type,
+      hash,
+      domain,
+      license,
+      licenseVersion,
+      source,
+      authors,
+    },
     onCompleted: () => {
-      resetForm();
+      //  resetForm();
       setStatus({ message: 'Criado com sucesso' });
     },
   });
@@ -36,6 +52,7 @@ const FieldsBox = styled.div`
 const FieldBox = styled.div`
   margin-bottom: ${theme.spacing.unit(2)};
   width: 100%;
+  min-height: 10px;
 `;
 
 const DescriptionBox = styled.div`
@@ -50,15 +67,8 @@ const ButtonBox = styled.div`
   width: ${theme.spacing.unit(10)};
 `;
 
-const SelectBox = styled.div`
-  & select {
-    width: ${theme.spacing.unit(50)};
-  }
-`;
-
-const CreateMaterialPage = ({ viewer, system }) => {
+const CreateMaterialPage = ({ system }) => {
   const { t } = useStateValue();
-  console.log(viewer, system);
   return (
     <>
       <Formik
@@ -73,7 +83,6 @@ const CreateMaterialPage = ({ viewer, system }) => {
               <FieldsBox>
                 <FieldBox>
                   <Field
-                    type="title"
                     placeholder={t('createMaterialPage.title')}
                     name="title"
                     onChange={props => {
@@ -93,24 +102,23 @@ const CreateMaterialPage = ({ viewer, system }) => {
 
                 <FieldBox>
                   <DescriptionBox>
-                    <Field
-                      component="textarea"
-                      type="description"
-                      placeholder={t('createMaterialPage.description')}
-                      name="description"
-                    />
+                    <Field component="textarea" placeholder={t('createMaterialPage.description')} name="description" />
                   </DescriptionBox>
                 </FieldBox>
                 <FieldBox>
-                  <Field type="versionName" placeholder="versionName" name="versionName" />
+                  <Field placeholder="versionName" name="versionName" />
                 </FieldBox>
 
                 <FieldBox>
-                  <Field type="releaseDate" placeholder="releaseDate" name="releaseDate" />
+                  <Field type="date" placeholder="releaseDate" name="releaseDate" />
                 </FieldBox>
 
                 <FieldBox>
-                  <Field type="link" placeholder={t('createMaterialPage.link')} name="link" />
+                  <InfinitySelectInputs name="authors" placeholder="autor" selectInputItems={['myself']} />
+                </FieldBox>
+
+                <FieldBox>
+                  <Field placeholder={t('createMaterialPage.link')} name="link" />
                 </FieldBox>
 
                 <FieldBox>
@@ -134,11 +142,11 @@ const CreateMaterialPage = ({ viewer, system }) => {
                 </FieldBox>
 
                 <FieldBox>
-                  <Field type="licenseVersion" placeholder="licenseVersion" name="licenseVersion" />
+                  <Field placeholder="licenseVersion" name="licenseVersion" />
                 </FieldBox>
 
                 <FieldBox>
-                  <Field type="hash" placeholder={t('createMaterialPage.hash')} name="hash" />
+                  <Field placeholder={t('createMaterialPage.hash')} name="hash" />
                 </FieldBox>
 
                 {status && <>{status.message}</>}
@@ -157,7 +165,6 @@ const CreateMaterialPage = ({ viewer, system }) => {
 };
 
 CreateMaterialPage.propTypes = {
-  viewer: PropTypes.object.isRequired,
   system: PropTypes.object.isRequired,
 };
 
@@ -168,6 +175,13 @@ export default createQueryRenderer(CreateMaterialPage, {
         id
       }
       system {
+        users {
+          edges {
+            node {
+              name
+            }
+          }
+        }
         constants {
           materialTypes
           domainTypes

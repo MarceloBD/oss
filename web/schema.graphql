@@ -22,6 +22,8 @@ input CreateNewPostMutationInput {
   domain: String
   license: String
   licenseVersion: String
+  source: String
+  authors: [String]
   hash: String
   clientMutationId: String
 }

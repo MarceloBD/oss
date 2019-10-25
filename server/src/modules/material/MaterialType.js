@@ -39,12 +39,17 @@ const MaterialType = registerGraphQLNodeObjectType('material')({
         const authors = [];
         // eslint-disable-next-line
         for (let idx in materialAuthors) {
-          authors.push(context.photon.materialAuthors.findOne({ where: { id: materialAuthors[idx].id } }).author());
+          authors.push(
+            // eslint-disable-next-line no-await-in-loop
+            await context.photon.materialAuthors.findOne({ where: { id: materialAuthors[idx].id } }).author(),
+          );
         }
         const users = [];
+
         // eslint-disable-next-line
         for (let idx in authors) {
-          users.push(context.photon.authors.findOne({ where: { id: authors[idx].id } }).user());
+          // eslint-disable-next-line no-await-in-loop
+          users.push(await context.photon.authors.findOne({ where: { id: authors[idx].id } }).user());
         }
 
         return connectionFromArray(users, args);

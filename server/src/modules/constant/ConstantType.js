@@ -69,7 +69,6 @@ const ConstantType = registerGraphQLNodeObjectType('constant')({
       type: new GraphQLList(GraphQLString),
       resolve: async () => {
         const materials = await knex('domain_type_count');
-        console.log(materials);
         return DOMAIN_TYPES.concat(materials.map(material => material.domain_name.toLowerCase()));
       },
     },
