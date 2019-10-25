@@ -1,4 +1,5 @@
 import { Field, Form, Formik } from 'formik';
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
@@ -16,17 +17,15 @@ const validationSchema = () =>
     description: Yup.string().required('Senha é um campo obrigatório'),
   });
 
-const onCreate = ({ title, description, language, link, type, hash }, { setStatus, resetForm }) => {
+const onCreate = ({ title, description, language, link, type, hash, domain, license, licenseVersion, source }, { setStatus, resetForm }) => {
   CreateNewPostMutation.commit({
-    variables: { title, description, language, url: link, type, hash },
+    variables: { title, description, language, url: link, type, hash, domain, license, licenseVersion, source },
     onCompleted: () => {
       resetForm();
       setStatus({ message: 'Criado com sucesso' });
     },
   });
 };
-
-const TYPES = ['software', 'hardware', 'teaching', 'research_data', 'artistic'];
 
 const FieldsBox = styled.div`
   display: flex;
@@ -102,24 +101,12 @@ const CreateMaterialPage = ({ viewer, system }) => {
                     />
                   </DescriptionBox>
                 </FieldBox>
+                <FieldBox>
+                  <Field type="versionName" placeholder="versionName" name="versionName" />
+                </FieldBox>
 
                 <FieldBox>
-                  <SelectBox>
-                    <Field
-                      type="language"
-                      placeholder={t('createMaterialPage.language')}
-                      name="language"
-                      component="input"
-                      list="languages"
-                    />
-                    <Field id="languages" placeholder={t('createMaterialPage.language')} component="datalist">
-                      {Object.keys(languages).map(i => (
-                        <Field value={languages[i].name} component="option" key={i}>
-                          {languages[i].name}
-                        </Field>
-                      ))}
-                    </Field>
-                  </SelectBox>
+                  <Field type="releaseDate" placeholder="releaseDate" name="releaseDate" />
                 </FieldBox>
 
                 <FieldBox>
@@ -127,27 +114,27 @@ const CreateMaterialPage = ({ viewer, system }) => {
                 </FieldBox>
 
                 <FieldBox>
-                  <SelectInput items={['teste', 'teste2']} name="domain" placeholder="dominio" />
+                  <SelectInput
+                    items={Object.values(languages).map(language => language.name)}
+                    name="language"
+                    placeholder={t('createMaterialPage.language')}
+                  />
                 </FieldBox>
 
                 <FieldBox>
-                  <SelectInput items={[]} name="source" placeholder="sourcetype" />
+                  <SelectInput items={system.constants.domainTypes} name="domain" placeholder="dominio" />
                 </FieldBox>
 
                 <FieldBox>
-                  <SelectInput items={[]} name="license" placeholder="licensename" />
+                  <SelectInput items={system.constants.sourceTypes} name="source" placeholder="sourcetype" />
+                </FieldBox>
+
+                <FieldBox>
+                  <SelectInput items={system.constants.licenseTypes} name="license" placeholder="licensename" />
                 </FieldBox>
 
                 <FieldBox>
                   <Field type="licenseVersion" placeholder="licenseVersion" name="licenseVersion" />
-                </FieldBox>
-
-                <FieldBox>
-                  <Field type="versionName" placeholder="versionName" name="versionName" />
-                </FieldBox>
-
-                <FieldBox>
-                  <Field type="releaseDate" placeholder="releaseDate" name="releaseDate" />
                 </FieldBox>
 
                 <FieldBox>
@@ -169,7 +156,10 @@ const CreateMaterialPage = ({ viewer, system }) => {
   );
 };
 
-CreateMaterialPage.propTypes = {};
+CreateMaterialPage.propTypes = {
+  viewer: PropTypes.object.isRequired,
+  system: PropTypes.object.isRequired,
+};
 
 export default createQueryRenderer(CreateMaterialPage, {
   query: graphql`
@@ -180,6 +170,9 @@ export default createQueryRenderer(CreateMaterialPage, {
       system {
         constants {
           materialTypes
+          domainTypes
+          sourceTypes
+          licenseTypes
         }
       }
     }

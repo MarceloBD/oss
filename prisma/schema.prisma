@@ -33,12 +33,10 @@ model KnexMigration {
 
 model License {
   id          Int        @id
-  active      Boolean
-  createdAt   DateTime   @map("created_at")
+  active      Boolean     @default(true)
   licenseType String?    @map("license_type")
   material    Material[]
   name        String
-  updatedAt   DateTime   @map("updated_at")
   version     String?
 
   @@map("license")

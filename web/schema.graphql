@@ -5,6 +5,9 @@ type Auth {
 
 type Constant implements Node {
   materialTypes: [String]
+  domainTypes: [String]
+  sourceTypes: [String]
+  licenseTypes: [String]
 
   # The ID of an object
   id: ID!
@@ -16,6 +19,9 @@ input CreateNewPostMutationInput {
   language: String
   url: String
   type: String
+  domain: String
+  license: String
+  licenseVersion: String
   hash: String
   clientMutationId: String
 }

@@ -8,8 +8,6 @@ exports.up = async knex => {
 
     t.string("version");
 
-    t.string("license_type");
-
     t.boolean("active")
       .notNull()
       .defaultTo(true);

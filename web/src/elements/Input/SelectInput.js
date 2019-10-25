@@ -20,20 +20,22 @@ const Arrow = styled.span`
   }
 `;
 
-const SelectInput = ({ items, placeholder, name }) => (
-  <SelectBox>
-    <Arrow>
-      <Field type={name} placeholder={placeholder} name={name} component="input" list={name} />
-    </Arrow>
-    <Field id={name} placeholder={placeholder} component="datalist">
-      {items.map(item => (
-        <Field value={item} component="option" key={item}>
-          {item}
-        </Field>
-      ))}
-    </Field>
-  </SelectBox>
-);
+const SelectInput = ({ items, placeholder, name }) => {
+  return (
+    <SelectBox>
+      <Arrow>
+        <Field type={name} placeholder={placeholder} name={name} component="input" list={name} />
+      </Arrow>
+      <Field id={name} placeholder={placeholder} component="datalist">
+        {items.map(item => (
+          <Field value={item} component="option" key={item}>
+            {item}
+          </Field>
+        ))}
+      </Field>
+    </SelectBox>
+  );
+};
 
 SelectInput.propTypes = {
   items: PropTypes.arrayOf(PropTypes.string).isRequired,

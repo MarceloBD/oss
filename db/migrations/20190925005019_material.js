@@ -37,12 +37,5 @@ exports.up = async knex => {
 };
 
 exports.down = async knex => {
-  await knex.schema.table("material", async t => {
-    t.dropForeign("version_id");
-    t.dropColumn("version_id");
-
-    t.dropForeign("license_id");
-    t.dropColumn("license_id");
-  });
   await knex.schema.dropTableIfExists("material");
 };

@@ -6,7 +6,10 @@ import moment from 'moment-timezone';
 import { TYPES } from '../../material/MaterialType';
 import knex from '../../../utils/knex';
 
-export const createNewPost = async ({ clientMutationId, title, description, language, url, type, hash }, context) => {
+export const createNewPost = async (
+  { clientMutationId, title, description, language, url, type, hash, domain, license, licenseVersion, source },
+  context,
+) => {
   const othersId = TYPES.others;
   const typeId = get(TYPES, type.toLowerCase(), TYPES.others);
 
@@ -44,6 +47,9 @@ export const createNewPost = async ({ clientMutationId, title, description, lang
                 type: type.toUpperCase(),
                 hash,
                 openSourceId: `${moment().format('YYYY')}.${typeId}.${parseInt(count, 10) + 1}`,
+                domainName: domain,
+                license: { create: { name: license, version: licenseVersion } },
+                sourceType: source,
               },
             },
             user: { connect: { id: context.user.id } },
@@ -65,6 +71,10 @@ export default mutationWithClientMutationId({
     language: { type: GraphQLString },
     url: { type: GraphQLString },
     type: { type: GraphQLString },
+    domain: { type: GraphQLString },
+    license: { type: GraphQLString },
+    licenseVersion: { type: GraphQLString },
+    source: { type: GraphQLString },
 
     hash: { type: GraphQLString },
   },
