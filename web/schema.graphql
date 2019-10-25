@@ -119,6 +119,7 @@ type Mutation {
   signOut(input: SignOutMutationInput!): SignOutMutationPayload
   signUp(input: SignUpMutationInput!): SignUpMutationPayload
   createNewPost(input: CreateNewPostMutationInput!): CreateNewPostMutationPayload
+  sendAccessedPost(input: SendAccessedPostMutationInput!): SendAccessedPostMutationPayload
 }
 
 # An object with an ID
@@ -188,6 +189,15 @@ input ResetPasswordMutationInput {
 type ResetPasswordMutationPayload {
   jwtToken: String!
   user: User!
+  clientMutationId: String
+}
+
+input SendAccessedPostMutationInput {
+  materialGlobalId: ID
+  clientMutationId: String
+}
+
+type SendAccessedPostMutationPayload {
   clientMutationId: String
 }
 

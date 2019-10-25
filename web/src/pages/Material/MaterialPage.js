@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { createQueryRenderer, graphql } from 'utils/relay';
 
 import ItemBox from '../../components/TagContent';
 import Vote from '../../components/Vote';
+import SendAccessedPostMutation from '../../modules/post/mutations/SendAccessedPostMutation';
 import { useStateValue } from '../../utils/context';
 import theme from '../../utils/theme';
 
@@ -72,7 +73,7 @@ const ReferencesBox = styled.div`
   width: 100%;
 `;
 
-const MaterialPage = ({ material }) => {
+const MaterialPage = ({ material, match }) => {
   const { t } = useStateValue();
   const [voteBoxHeight, setVoteBoxHeight] = useState();
 
@@ -83,6 +84,8 @@ const MaterialPage = ({ material }) => {
   window.addEventListener('resize', () => {
     setVoteBoxHeight(voteBoxRef.current.offsetWidth);
   });
+
+  useEffect(() => SendAccessedPostMutation.commit({ variables: { materialGlobalId: match.params.materialId } }), []);
 
   return (
     <>
