@@ -6,10 +6,11 @@ import { registerGraphQLNodeObjectType } from '../node/NodeType';
 import PostType from '../post/PostType';
 import connectionArgs from '../prisma/connectionArgs';
 import { UserConnection } from '../user/UserType';
+import { getMaterial } from './Material';
 
 export const TYPES = { software: 1, hardware: 2, teaching: 3, research_data: 4, artistic: 5, others: 6 };
 
-const MaterialType = registerGraphQLNodeObjectType('material')({
+const MaterialType = registerGraphQLNodeObjectType('material', getMaterial)({
   name: 'Material',
   fields: () => ({
     name: {
