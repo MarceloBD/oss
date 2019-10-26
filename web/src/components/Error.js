@@ -12,7 +12,7 @@ const Error = ({ errors, component, match }) => {
           match.location.pathname,
         )}&baseurl=${process.env.PORTAL_URL}`;
       } else if (checkError(errors, 'unauthorized')) {
-        window.location = `/#/home`;
+        window.location = `/#/`;
       } else if (checkError(errors, 'no_enrollment')) {
         window.location = '/#/no-enrollment';
       } else if (checkError(errors, 'trial_ended')) {

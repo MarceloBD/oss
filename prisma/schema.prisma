@@ -199,9 +199,7 @@ model SoftwareProgrammingLanguage {
 
 model Staff {
   id        Int      @id
-  active    Boolean
-  createdAt DateTime @map("created_at")
-  updatedAt DateTime @map("updated_at")
+  active    Boolean @default(true)
   user      User?    @map("user_id")
 
   @@map("staff")

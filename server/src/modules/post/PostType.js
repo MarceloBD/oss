@@ -49,19 +49,32 @@ export const PostConnection = connectionDefinitions({
 
 export const PostQuery = {
   type: PostConnection.connectionType,
-  args: { type: { type: GraphQLString }, page: { type: GraphQLInt }, ...connectionArgs },
+  args: {
+    type: { type: GraphQLString },
+    page: { type: GraphQLInt },
+    staff: { type: GraphQLBoolean },
+    ...connectionArgs,
+  },
   resolve: async (root, args, context) => {
+    const showOnlyChecked = () => (!args.staff ? { checked: true } : {});
+
     let posts = [];
     if (args.type !== 'all') {
       if (args.type !== 'others') {
-        posts = await context.photon.posts({ where: { material: { type: args.type.toUpperCase() } } });
+        posts = await context.photon.posts({
+          where: { material: { type: args.type.toUpperCase() } },
+          ...showOnlyChecked(),
+        });
       } else {
         posts = await context.photon.posts({
-          where: { material: { NOT: Object.keys(TYPES).map(type => ({ type: type.toUpperCase() })) } },
+          where: {
+            material: { NOT: Object.keys(TYPES).map(type => ({ type: type.toUpperCase() })) },
+            ...showOnlyChecked(),
+          },
         });
       }
     } else {
-      posts = await context.photon.posts();
+      posts = await context.photon.posts({ where: { ...showOnlyChecked() } });
     }
     const after = Buffer.from(`arrayconnection:${(args.page - 1) * args.first - 1}`).toString('base64');
     const conn = connectionFromArray(posts, { ...args, after });

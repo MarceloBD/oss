@@ -189,7 +189,7 @@ type PostEdge {
 
 type Query {
   auth: Auth
-  viewer(hasUser: Boolean): User
+  viewer(hasUser: Boolean, hasStaff: Boolean): User
 
   # Fetches an object given its ID
   node(
@@ -255,7 +255,7 @@ type SignUpMutationPayload {
 
 type System {
   users(skip: Int, after: String, before: String, first: Int, last: Int): UserConnection
-  posts(type: String, page: Int, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
+  posts(type: String, page: Int, staff: Boolean, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
   constants: Constant
 }
 
