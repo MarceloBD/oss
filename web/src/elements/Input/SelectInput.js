@@ -7,7 +7,7 @@ import theme from '../../utils/theme';
 
 const SelectBox = styled.div`
   & select {
-    width: ${theme.spacing.unit(50)};
+    width: 100%;
   }
 `;
 

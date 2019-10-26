@@ -4,6 +4,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
+import HelpIcon from '../../assets/icons/help';
+import Tooltip from '../../components/Tooltip';
 import InfinitySelectInputs from '../../compositions/InfinitySelectInputs';
 import SelectInput from '../../elements/Input/SelectInput';
 import CreateNewPostMutation from '../../modules/post/mutations/CreateNewPostMutation';
@@ -116,6 +118,9 @@ const CreateMaterialPage = ({ system }) => {
 
                 <FieldBox>
                   <Field type="date" placeholder="releaseDate" name="releaseDate" />
+                  <Tooltip text="Data de criação do material">
+                    <HelpIcon />
+                  </Tooltip>
                 </FieldBox>
 
                 <FieldBox>

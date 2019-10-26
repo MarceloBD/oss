@@ -76,7 +76,7 @@ const ReferencesBox = styled.div`
   width: 100%;
 `;
 
-const MaterialPage = ({ material, match }) => {
+const MaterialPage = ({ material, match, viewer }) => {
   const { t } = useStateValue();
   const [voteBoxHeight, setVoteBoxHeight] = useState();
 
@@ -134,7 +134,7 @@ const MaterialPage = ({ material, match }) => {
           </AtributeAuthorBox>
         </DescriptionAttributeAuthorBox>
         <VoteLinkReferenceBox>
-          <Clickable onClick={material.post.isVoted ? unvote : vote}>
+          <Clickable onClick={material.post.isVoted ? unvote : vote} disabled={!viewer}>
             <VotesBox ref={voteBoxRef} height={voteBoxHeight}>
               <Vote number={material.post.votes} size={(voteBoxHeight * 2) / 5} unvote={material.post.isVoted} />
             </VotesBox>
@@ -165,6 +165,9 @@ MaterialPage.propTypes = {
 export default createQueryRenderer(MaterialPage, {
   query: graphql`
     query MaterialPageQuery($globalId: ID!) {
+      viewer {
+        id
+      }
       material: node(id: $globalId) {
         ... on Material {
           id

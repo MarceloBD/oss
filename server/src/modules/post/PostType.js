@@ -22,6 +22,9 @@ const PostType = registerGraphQLNodeObjectType('post')({
     isVoted: {
       type: GraphQLBoolean,
       resolve: async (post, args, context) => {
+        if (!context.user) {
+          return false;
+        }
         const votes = await context.photon.posts
           .findOne({ where: { id: post.id } })
           .postVote({ where: { user: { id: context.user.id } } });
