@@ -106,7 +106,19 @@ const MaterialPage = ({ material, match }) => {
             <AttributeBox>
               <ItemBox
                 tag={t('materialPage.atribute')}
-                content={<AttributeTag>Lingua - {material.language}</AttributeTag>}
+                content={
+                  <>
+                    <AttributeTag>Lingua - {material.language}</AttributeTag>
+                    <AttributeTag>Fonte - {material.source}</AttributeTag>
+                    <AttributeTag>Id - {material.osid}</AttributeTag>
+                    <AttributeTag>
+                      License - {material.license.name} {material.license.version}
+                    </AttributeTag>
+                    <AttributeTag>Área - {material.domain}</AttributeTag>
+                    <AttributeTag>Hash - {material.hash}</AttributeTag>
+                    <AttributeTag>Tipo - {material.type}</AttributeTag>
+                  </>
+                }
               />
             </AttributeBox>
             <AuthorsBox>
@@ -156,6 +168,15 @@ export default createQueryRenderer(MaterialPage, {
           description
           language
           url
+          source
+          osid
+          type
+          domain
+          hash
+          license {
+            name
+            version
+          }
           post {
             votes
             isVoted

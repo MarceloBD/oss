@@ -1,6 +1,7 @@
 import { GraphQLString } from 'graphql';
 import { connectionDefinitions, connectionFromArray } from 'graphql-relay';
 
+import LicenseType from '../license/LicenseType';
 import { registerGraphQLNodeObjectType } from '../node/NodeType';
 import PostType from '../post/PostType';
 import connectionArgs from '../prisma/connectionArgs';
@@ -27,6 +28,28 @@ const MaterialType = registerGraphQLNodeObjectType('material')({
       type: GraphQLString,
       resolve: material => material.language,
     },
+    source: {
+      type: GraphQLString,
+      resolve: material => material.sourceType,
+    },
+    domain: {
+      type: GraphQLString,
+      resolve: material => material.domainName,
+    },
+    hash: {
+      type: GraphQLString,
+      resolve: material => material.hash,
+    },
+
+    osid: {
+      type: GraphQLString,
+      resolve: material => material.openSourceId,
+    },
+    license: {
+      type: LicenseType,
+      resolve: (material, args, context) => context.photon.materials.findOne({ where: { id: material.id } }).license(),
+    },
+
     post: {
       type: PostType,
       resolve: async (material, args, context) => {

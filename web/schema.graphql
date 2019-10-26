@@ -64,6 +64,14 @@ type EnrollmentEdge {
   cursor: String!
 }
 
+type License implements Node {
+  name: String
+  version: String
+
+  # The ID of an object
+  id: ID!
+}
+
 input LoginMutationInput {
   email: String!
   password: String!
@@ -100,6 +108,11 @@ type Material implements Node {
   type: String
   description: String
   language: String
+  source: String
+  domain: String
+  hash: String
+  osid: String
+  license: License
   post: Post
   url: String
   authors(skip: Int, after: String, before: String, first: Int, last: Int): UserConnection
