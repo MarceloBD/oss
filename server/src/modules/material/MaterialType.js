@@ -2,6 +2,7 @@ import { GraphQLString } from 'graphql';
 import { connectionDefinitions, connectionFromArray } from 'graphql-relay';
 
 import { registerGraphQLNodeObjectType } from '../node/NodeType';
+import PostType from '../post/PostType';
 import connectionArgs from '../prisma/connectionArgs';
 import { UserConnection } from '../user/UserType';
 
@@ -26,7 +27,13 @@ const MaterialType = registerGraphQLNodeObjectType('material')({
       type: GraphQLString,
       resolve: material => material.language,
     },
-
+    post: {
+      type: PostType,
+      resolve: async (material, args, context) => {
+        const [post] = await context.photon.materials.findOne({ where: { id: material.id } }).post();
+        return post;
+      },
+    },
     url: {
       type: GraphQLString,
       resolve: material => material.url,

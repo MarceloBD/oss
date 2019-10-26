@@ -100,6 +100,7 @@ type Material implements Node {
   type: String
   description: String
   language: String
+  post: Post
   url: String
   authors(skip: Int, after: String, before: String, first: Int, last: Int): UserConnection
 
@@ -120,6 +121,8 @@ type Mutation {
   signUp(input: SignUpMutationInput!): SignUpMutationPayload
   createNewPost(input: CreateNewPostMutationInput!): CreateNewPostMutationPayload
   sendAccessedPost(input: SendAccessedPostMutationInput!): SendAccessedPostMutationPayload
+  unvote(input: UnvoteMutationInput!): UnvoteMutationPayload
+  vote(input: VoteMutationInput!): VoteMutationPayload
 }
 
 # An object with an ID
@@ -145,6 +148,8 @@ type PageInfo {
 
 type Post implements Node {
   material: Material
+  votes: Int
+  isVoted: Boolean
 
   # The ID of an object
   id: ID!
@@ -240,6 +245,16 @@ type System {
   constants: Constant
 }
 
+input UnvoteMutationInput {
+  materialGlobalId: ID
+  clientMutationId: String
+}
+
+type UnvoteMutationPayload {
+  post: Post
+  clientMutationId: String
+}
+
 input UpdateLastAccessMutationInput {
   id: ID
   clientMutationId: String
@@ -284,4 +299,14 @@ type UserEdge {
 
   # A cursor for use in pagination
   cursor: String!
+}
+
+input VoteMutationInput {
+  materialGlobalId: ID
+  clientMutationId: String
+}
+
+type VoteMutationPayload {
+  post: Post
+  clientMutationId: String
 }

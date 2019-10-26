@@ -5,7 +5,10 @@ import { createQueryRenderer, graphql } from 'utils/relay';
 
 import ItemBox from '../../components/TagContent';
 import Vote from '../../components/Vote';
+import Clickable from '../../elements/Clickable';
 import SendAccessedPostMutation from '../../modules/post/mutations/SendAccessedPostMutation';
+import UnvoteMutation from '../../modules/vote/mutations/UnvoteMutation';
+import VoteMutation from '../../modules/vote/mutations/VoteMutation';
 import { useStateValue } from '../../utils/context';
 import theme from '../../utils/theme';
 
@@ -79,6 +82,9 @@ const MaterialPage = ({ material, match }) => {
 
   const voteBoxRef = useRef();
 
+  const vote = () => VoteMutation.commit({ variables: { materialGlobalId: match.params.materialId } });
+  const unvote = () => UnvoteMutation.commit({ variables: { materialGlobalId: match.params.materialId } });
+
   useEffect(() => setVoteBoxHeight(voteBoxRef.current.offsetWidth), [voteBoxRef]);
 
   window.addEventListener('resize', () => {
@@ -112,9 +118,11 @@ const MaterialPage = ({ material, match }) => {
           </AtributeAuthorBox>
         </DescriptionAttributeAuthorBox>
         <VoteLinkReferenceBox>
-          <VotesBox ref={voteBoxRef} height={voteBoxHeight}>
-            <Vote number={0} size={(voteBoxHeight * 2) / 5} />
-          </VotesBox>
+          <Clickable onClick={material.post.isVoted ? unvote : vote}>
+            <VotesBox ref={voteBoxRef} height={voteBoxHeight}>
+              <Vote number={material.post.votes} size={(voteBoxHeight * 2) / 5} unvote={material.post.isVoted} />
+            </VotesBox>
+          </Clickable>
           <LinkBox>
             <ItemBox
               tag={t('materialPage.link')}
@@ -148,6 +156,10 @@ export default createQueryRenderer(MaterialPage, {
           description
           language
           url
+          post {
+            votes
+            isVoted
+          }
           authors {
             edges {
               node {

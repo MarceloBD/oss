@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import styled from 'styled-components';
 
 import Clickable from './Clickable';
 
+const IconBox = styled.div`
+  display: contents;
+`;
+
 const ClickableIcon = ({ icon, onClick, link }) => (
   <Clickable link={link} onClick={onClick}>
-    <div>{icon}</div>
+    <IconBox>{icon}</IconBox>
   </Clickable>
 );
 

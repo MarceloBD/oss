@@ -28,7 +28,7 @@ const ToVoteBox = styled.div`
   align-items: center;
 `;
 
-const Vote = ({ number, size }) => {
+const Vote = ({ number, size, unvote }) => {
   const { t } = useStateValue();
 
   return (
@@ -36,7 +36,7 @@ const Vote = ({ number, size }) => {
       <div>{t('vote.votes')}</div>
       <div>{number}</div>
       <Clickable>
-        <ToVoteBox size={size}>{t('vote.vote')}</ToVoteBox>
+        <ToVoteBox size={size}>{unvote ? 'desvotar' : t('vote.vote')}</ToVoteBox>
       </Clickable>
     </VoteBox>
   );
@@ -45,10 +45,12 @@ const Vote = ({ number, size }) => {
 Vote.propTypes = {
   number: PropTypes.number.isRequired,
   size: PropTypes.number,
+  unvote: PropTypes.bool,
 };
 
 Vote.defaultProps = {
   size: theme.spacing.unit(10),
+  unvote: false,
 };
 
 export default Vote;
