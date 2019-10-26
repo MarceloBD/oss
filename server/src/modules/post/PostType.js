@@ -62,11 +62,14 @@ export const PostQuery = {
     if (args.type !== 'all') {
       if (args.type !== 'others') {
         posts = await context.photon.posts({
+          orderBy: { checked: 'asc' },
           where: { material: { type: args.type.toUpperCase() } },
           ...showOnlyChecked(),
         });
       } else {
         posts = await context.photon.posts({
+          orderBy: { checked: 'asc' },
+
           where: {
             material: { NOT: Object.keys(TYPES).map(type => ({ type: type.toUpperCase() })) },
             ...showOnlyChecked(),
@@ -74,7 +77,10 @@ export const PostQuery = {
         });
       }
     } else {
-      posts = await context.photon.posts({ where: { ...showOnlyChecked() } });
+      posts = await context.photon.posts({
+        orderBy: { checked: 'asc' },
+        where: { ...showOnlyChecked() },
+      });
     }
     const after = Buffer.from(`arrayconnection:${(args.page - 1) * args.first - 1}`).toString('base64');
     const conn = connectionFromArray(posts, { ...args, after });
