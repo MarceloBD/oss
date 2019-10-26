@@ -31,14 +31,22 @@ const PostType = registerGraphQLNodeObjectType('post')({
   }),
 });
 
+const connectionFields = {
+  count: {
+    type: GraphQLInt,
+    resolve: ({ count }) => count,
+  },
+};
+
 export const PostConnection = connectionDefinitions({
   name: 'Post',
   nodeType: PostType,
+  connectionFields,
 });
 
 export const PostQuery = {
   type: PostConnection.connectionType,
-  args: { type: { type: GraphQLString }, ...connectionArgs },
+  args: { type: { type: GraphQLString }, page: { type: GraphQLInt }, ...connectionArgs },
   resolve: async (root, args, context) => {
     let posts = [];
     if (args.type !== 'all') {
@@ -52,7 +60,12 @@ export const PostQuery = {
     } else {
       posts = await context.photon.posts();
     }
-    return connectionFromArray(posts, args);
+    const after = Buffer.from(`arrayconnection:${(args.page - 1) * args.first - 1}`).toString('base64');
+    const conn = connectionFromArray(posts, { ...args, after });
+    return {
+      ...conn,
+      count: posts.length,
+    };
   },
 };
 

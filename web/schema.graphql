@@ -162,6 +162,7 @@ type PostConnection {
 
   # A list of edges.
   edges: [PostEdge]
+  count: Int
 }
 
 # An edge in a connection.
@@ -241,7 +242,7 @@ type SignUpMutationPayload {
 
 type System {
   users(skip: Int, after: String, before: String, first: Int, last: Int): UserConnection
-  posts(type: String, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
+  posts(type: String, page: Int, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection
   constants: Constant
 }
 
