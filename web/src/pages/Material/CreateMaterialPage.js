@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
@@ -69,6 +69,11 @@ const ButtonBox = styled.div`
 
 const CreateMaterialPage = ({ system }) => {
   const { t } = useStateValue();
+
+  useEffect(() => {
+    document.title = 'Criar Material';
+  }, []);
+
   return (
     <>
       <Formik

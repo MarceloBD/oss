@@ -85,6 +85,10 @@ const MaterialPage = ({ material, match }) => {
   const vote = () => VoteMutation.commit({ variables: { materialGlobalId: match.params.materialId } });
   const unvote = () => UnvoteMutation.commit({ variables: { materialGlobalId: match.params.materialId } });
 
+  useEffect(() => {
+    document.title = 'Material';
+  }, []);
+
   useEffect(() => setVoteBoxHeight(voteBoxRef.current.offsetWidth), [voteBoxRef]);
 
   window.addEventListener('resize', () => {

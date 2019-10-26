@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import * as Yup from 'yup';
@@ -73,6 +73,10 @@ const LoginPage = () => {
   const onSignUp = ({ name, email, document, cellphone, password }) => {
     SignUpMutation.commit({ variables: { name, email, document, cellphone, password } });
   };
+
+  useEffect(() => {
+    document.title = 'Logar ou Criar conta';
+  }, []);
 
   return (
     <LoginPageContent>

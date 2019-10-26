@@ -43,6 +43,10 @@ const MaterialsListPage = ({ system, relay }) => {
     }
   }, [selectedPage, commentsPerPage]);
 
+  useEffect(() => {
+    document.title = 'Lista de materiais';
+  }, []);
+
   return (
     <>
       <TitleBox>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import Title from '../../components/TitleIcon';
@@ -26,6 +26,10 @@ const MenuBox = styled.div`
 
 const HomePage = () => {
   const { t } = useStateValue();
+
+  useEffect(() => {
+    document.title = "We're Open";
+  }, []);
   return (
     <>
       <TitleBox>{t('homePage.title')}</TitleBox>
